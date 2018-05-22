@@ -1,0 +1,29 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '((".google.com"
+  [url-cookie "HttpOnly" nil "13-Oct-2018 19:20:32.00 GMT" "/" ".google.com" nil]
+  [url-cookie "NID" "128=irBz0xFexcIQqmxmRSGpTZyxbZqx2P_uHBVLIDH5Lrja96uP-3sVim4Cv36W1VcxbF6CkbXFPl9SVGSfyXiumtg-UwOLYKbxRwNsLb_CVqLFjqWwQL57h4Udg0e7BiGn" "13-Oct-2018 19:20:32.00 GMT" "/" ".google.com" nil]
+  [url-cookie "1P_JAR" "2018-04-13-19" "13-May-2018 19:20:40.00 GMT" "/" ".google.com" nil])
+ (".reddit.com"
+  [url-cookie "rseor3" "" "Fri, 20 Apr 2018 05:58:30 GMT" "/" ".reddit.com" nil]))
+)
+(setq url-cookie-secure-storage
+ '(("wikipedia.org"
+  [url-cookie "WMF-Last-Access" "02-Apr-2018" "Fri, 04 May 2018 00:00:00 GMT" "/" "wikipedia.org" t]
+  [url-cookie "HttpOnly" nil "Fri, 04 May 2018 00:00:00 GMT" "/" "wikipedia.org" t])
+ (".github.com"
+  [url-cookie "HttpOnly" nil "Wed, 07 Apr 2038 04:56:28 -0000" "/" ".github.com" t]
+  [url-cookie "logged_in" "no" "Wed, 07 Apr 2038 04:56:28 -0000" "/" ".github.com" t])
+ (".wikipedia.org"
+  [url-cookie "WMF-Last-Access-Global" "02-Apr-2018" "Fri, 04 May 2018 00:00:00 GMT" "/" ".wikipedia.org" t]
+  [url-cookie "HttpOnly" nil "Fri, 04 May 2018 00:00:00 GMT" "/" ".wikipedia.org" t])
+ ("reddit.com"
+  [url-cookie "loid" "000000000012lhy6je.2.1521611874103.Z0FBQUFBQmFzZlJpNlZRcVNrRUJzUVN0Q2hyRGkySWdPZWNmSU5MT1ltQmVJQXdXNjV5a3QtRlJsV1FWMXRTaC1odnZTcFl3a19QWmhDUHM5RHo3ZnF0MldVUzROcjc5RVF6OU05di1FRWVPaXJWUWhiTWN5RUp5bVktaEhIaUlnQ0NtRGRMb1hFazI" "20-Mar-2020 05:57:54.00 GMT" "/" "reddit.com" t]))
+)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:
