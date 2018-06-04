@@ -49,6 +49,18 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package ivy
+  :ensure t
+  :init
+  :config
+  (ivy-mode)
+  (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done))
+
+(use-package counsel
+  :ensure t
+  :defer t
+  :bind (("C-c C-/" . counsel-grep)))
+
 (use-package tramp
   :ensure t
   :defer t
