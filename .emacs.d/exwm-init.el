@@ -5,6 +5,7 @@
 ;;; Code:
 
 (use-package exwm
+  :ensure t
   :init
   
   (require 'exwm)
