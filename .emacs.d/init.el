@@ -13,8 +13,8 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (fringe-mode 0)
+  (winner-mode 1)
   (display-time-mode t)
-  (ido-mode 1)
   (display-battery-mode 1))
 
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
