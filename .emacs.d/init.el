@@ -356,7 +356,20 @@ The default value for this parameter is in the variable `default-terminal-name'.
     (condition-case nil
         (lsp-cquery-enable)
       (user-error nil)))
-  :init (add-hook 'c-mode-common-hook #'cquery//enable))
+  :init (add-hook 'c-mode-hook #'cquery//enable))
+
+(use-package lsp-java
+  :ensure t
+  :defer t
+  :init
+  (setq lsp-java--workspace-folders (list "~/code/mws-example"))
+  (add-hook 'java-mode-hook #'lsp-java-enable))
+
+(use-package lsp-ui
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
   
 ;;(use-package google-this
 ;;  :ensure t
