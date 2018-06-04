@@ -19,7 +19,7 @@
 
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
 
-;(server-start)
+(server-start)
 
 (set-face-attribute 'default nil :height 110)
 
