@@ -110,11 +110,6 @@
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
 
-(use-package helm-config
-  :defer t
-  :init
-  (helm-mode 1))
-
 (use-package smart-tabs-mode
   :defer t
   :init
