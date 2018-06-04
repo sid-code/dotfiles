@@ -111,14 +111,14 @@
   (add-to-list 'evil-emacs-state-modes 'term-mode))
 
 (use-package smart-tabs-mode
+  :ensure t
   :defer t
   :init
   (setq-default indent-tabs-mode nil)
-
-  :config
   (smart-tabs-insinuate 'c 'c++)
 
-  :hook (c-mode-common . (lambda () (setq indent-tabs-mode t))))
+  :config
+  (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode t))))
 
 (use-package pc-bufsw
   :defer t
