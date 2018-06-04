@@ -93,12 +93,16 @@
   ;; Use my ~/.ssh/config control master settings according to https://puppet.com/blog/speed-up-ssh-by-reusing-connections
   (setq tramp-ssh-controlmaster-options ""))
 
+(use-package magit
+  :ensure t
+  :defer t
+  :config
+  (require 'evil-magit))
 (use-package evil
   :defer t
   :init
   (evil-mode 1)
   :config
-  (require 'evil-magit)
   (evil-define-key 'normal evil-normal-state-map
     "ZQ" 'with-editor-cancel
     "ZZ" 'with-editor-finish)
