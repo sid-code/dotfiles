@@ -99,6 +99,7 @@
   :config
   (require 'evil-magit))
 (use-package evil
+  :ensure t
   :defer t
   :init
   (evil-mode 1)
