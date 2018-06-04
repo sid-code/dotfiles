@@ -60,6 +60,5 @@
 
   ;; Do not forget to enable EXWM. It will start by itself when things are
   ;; ready.  You can put it _anywhere_ in your configuration.
-  (exwm-enable)
-  (exwm-config-ido))
+  (exwm-enable))
 
