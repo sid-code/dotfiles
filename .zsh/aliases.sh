@@ -15,6 +15,8 @@ alias ncr="nim c -r"
 
 alias vim="emacsclient --alternate-editor=\"nvim\""
 
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
 alias off="shutdown now"
 
 alias dcd="sudo systemctl start dhcpcd"
