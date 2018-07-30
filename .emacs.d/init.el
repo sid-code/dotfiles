@@ -168,6 +168,10 @@ The default value for this parameter is in the variable `default-terminal-name'.
 (use-package ivy
   :ensure t
   :init
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  :bind (("C-x C-f" . counsel-find-file)
+         ("C-x b" . counsel-find-buffer))
   :config
   (ivy-mode)
   (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done))
