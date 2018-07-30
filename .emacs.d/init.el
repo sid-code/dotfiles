@@ -400,12 +400,22 @@ The default value for this parameter is in the variable `default-terminal-name'.
       (user-error nil)))
   :init (add-hook 'c-mode-hook #'cquery//enable))
 
+(use-package lsp-mode
+  :ensure t
+  :defer t
+  :init)
+
 (use-package lsp-java
   :ensure t
   :defer t
+  :config
+  (setq lsp-java--workspace-folders (list "TBA"))
+  (add-hook 'java-mode-hook (lambda ()
+                              (lsp-java-enable)
+                              (company-mode)
+                              (lsp-ui-mode)))
   :init
-  (setq lsp-java--workspace-folders (list "~/code/mws-example"))
-  (add-hook 'java-mode-hook #'lsp-java-enable))
+  (require 'lsp-java))
 
 (use-package lsp-ui
   :ensure t
