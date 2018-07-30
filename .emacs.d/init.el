@@ -43,7 +43,109 @@
 
 (set-face-attribute 'default nil :height 110)
 
+;; exwm
+(load-file "~/.emacs.d/exwm-init.el")
 
+;; keybinds
+(progn
+
+  ;(global-set-key "\C-cl" 'org-store-link)
+  ;(global-set-key "\C-ca" 'org-agenda)
+  ;(global-set-key "\C-cc" 'org-capture)
+  ;(global-set-key "\C-cb" 'org-iswitchb)
+
+  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
+  (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
+  (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
+
+  (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
+
+  (dotimes (i 10)
+    (exwm-input-set-key (kbd (format "s-%d" i))
+                        `(lambda ()
+                           (interactive)
+                           (exwm-workspace-switch-create ,i))))
+
+  (exwm-input-set-key (kbd "s-R") (lambda () (interactive) (call-interactively #'exwm-reset)))
+  (exwm-input-set-key (kbd "s-r") (lambda (command) (interactive (list (read-shell-command "$ ")))
+                                    (start-process-shell-command command nil command)))
+  (exwm-input-set-key (kbd "s-o")
+                      (lambda () (interactive) (start-process-shell-command "slock" nil "sudo /home/ANT.AMAZON.COM/sidharku/code/slock/slock")))
+  (exwm-input-set-key (kbd "s-<return>")
+                      (lambda () (interactive) (start-process "" nil "/usr/bin/urxvt")))
+  (exwm-input-set-key (kbd "s-c")
+                      (lambda() (interactive) (start-process "" nil "/home/sid/bin/qute-launch")))
+
+  (exwm-input-set-key (kbd "s-C") #'kill-buffer-and-window)
+
+  (exwm-input-set-key (kbd "s-i")
+                      (lambda () (interactive) (call-interactively #'exwm-input-release-keyboard)))
+  (exwm-input-set-key (kbd "s-<escape>")
+                      (lambda () (interactive) (call-interactively #'exwm-input-grab-keyboard)))
+
+  (exwm-input-set-key (kbd "s-<f2>")
+                      (lambda () (interactive)
+                        (shell-command "/home/sid/code/dwmbar/dwmstatus/rawstatus --once")))
+
+  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
+         (progn
+           (call-interactively 'multi-term-dedicated-toggle)
+           (if (window-valid-p multi-term-dedicated-window)
+               (call-interactively 'multi-term-dedicated-select))))
+
+  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select)
+
+  (exwm-input-set-key (kbd "s-q") 'delete-window)
+  (exwm-input-set-key (kbd "s-h") 'windmove-left)
+  (exwm-input-set-key (kbd "s-j") 'windmove-down)
+  (exwm-input-set-key (kbd "s-k") 'windmove-up)
+  (exwm-input-set-key (kbd "s-l") 'windmove-right)
+
+  (exwm-input-set-key (kbd "s-L") (lambda () (interactive)
+                                    (call-interactively #'split-window-right)
+                                    (call-interactively #'windmove-right)))
+  (exwm-input-set-key (kbd "s-J") (lambda () (interactive)
+                                    (call-interactively #'split-window-below)
+                                    (call-interactively #'windmove-down)))
+  (exwm-input-set-key (kbd "s-H") 'split-window-right)
+  (exwm-input-set-key (kbd "s-K") 'split-window-below)
+  (exwm-input-set-key (kbd "s-x") (lambda () (interactive)
+                                    (call-interactively #'exwm-floating-toggle-floating)))
+
+  (defun sid/buffer-search-switch (bufname)
+    "Switch to window containing a buffer named (exactly) BUFNAME.  Do nothing if not possible."
+    (let ((matches (get-buffer-window-list bufname)))
+      (if matches
+          (select-window (car matches))
+        nil)))
+  (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox")))
+
+  (defvar default-terminal-name "term"
+    "The default name of a terminal when using `open-new-terminal'.")
+
+  (defun open-new-terminal (name)
+    "Opens a new terminal named NAME.
+NAME can be interactively provided.
+The default value for this parameter is in the variable `default-terminal-name'."
+    (interactive
+     (list (read-string (format "Terminal name (%s): " default-terminal-name)
+                        nil nil
+                        default-terminal-name
+                        nil)))
+    (rename-buffer name (term "/usr/bin/zsh")))
+
+  (exwm-input-set-key (kbd "s-t") 'open-new-terminal))
+
+
+;; misc settings
+
+(setq tab-width 8)
+
+(eval-after-load "term"
+  '(progn (term-set-escape-char ?\C-x)
+          (define-key term-raw-map (kbd "C-c") 'term-send-raw)))
 
 (use-package neotree
   :defer t)
@@ -249,103 +351,6 @@
     (company-mode +1))
   :hook ((before-save . tide-format-before-save)
          (typescript-mode . setup-tide-mode)))
-
-;; exwm
-(load-file "~/.emacs.d/exwm-init.el")
-
-;; keybinds
-(progn
-
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cc" 'org-capture)
-  (global-set-key "\C-cb" 'org-iswitchb)
-
-  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
-  (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
-  (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
-
-  (dotimes (i 10)
-    (exwm-input-set-key (kbd (format "s-%d" i))
-                        `(lambda ()
-                           (interactive)
-                           (exwm-workspace-switch-create ,i))))
-
-  (exwm-input-set-key (kbd "s-R") (lambda () (interactive) (call-interactively #'exwm-reset)))
-  (exwm-input-set-key (kbd "s-r") (lambda (command) (interactive (list (read-shell-command "$ ")))
-                                    (start-process-shell-command command nil command)))
-  (exwm-input-set-key (kbd "s-o")
-                      (lambda () (interactive) (start-process "" nil "/usr/bin/slock")))
-  (exwm-input-set-key (kbd "s-<return>")
-                      (lambda () (interactive) (start-process "" nil "/usr/bin/urxvt")))
-  (exwm-input-set-key (kbd "s-c")
-                      (lambda() (interactive) (start-process "" nil "/home/sid/bin/qute-launch")))
-
-  (exwm-input-set-key (kbd "s-C") #'kill-buffer-and-window)
-
-  (exwm-input-set-key (kbd "s-i")
-                      (lambda () (interactive) (call-interactively #'exwm-input-release-keyboard)))
-  (exwm-input-set-key (kbd "s-<escape>")
-                      (lambda () (interactive) (call-interactively #'exwm-input-grab-keyboard)))
-
-  (exwm-input-set-key (kbd "s-<f2>")
-                      (lambda () (interactive)
-                        (shell-command "/home/sid/code/dwmbar/dwmstatus/rawstatus --once")))
-  
-  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
-         (progn
-           (call-interactively 'multi-term-dedicated-toggle)
-           (if (window-valid-p multi-term-dedicated-window)
-               (call-interactively 'multi-term-dedicated-select))))
-  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select)
-
-  (exwm-input-set-key (kbd "s-q") 'delete-window)
-  (exwm-input-set-key (kbd "s-h") 'windmove-left)
-  (exwm-input-set-key (kbd "s-j") 'windmove-down)
-  (exwm-input-set-key (kbd "s-k") 'windmove-up)
-  (exwm-input-set-key (kbd "s-l") 'windmove-right)
-
-  (exwm-input-set-key (kbd "s-L") (lambda () (interactive)
-                                    (call-interactively #'split-window-right)
-                                    (call-interactively #'windmove-right)))
-  (exwm-input-set-key (kbd "s-J") (lambda () (interactive)
-                                    (call-interactively #'split-window-below)
-                                    (call-interactively #'windmove-down)))
-  (exwm-input-set-key (kbd "s-H") 'split-window-right)
-  (exwm-input-set-key (kbd "s-K") 'split-window-below)
-  (exwm-input-set-key (kbd "s-x") (lambda () (interactive)
-                                    (call-interactively #'exwm-floating-toggle-floating)))
-
-  (defvar default-terminal-name "term"
-    "The default name of a terminal when using `open-new-terminal'.")
-
-  (defun open-new-terminal (name)
-    "Opens a new terminal named NAME.
-NAME can be interactively provided.
-The default value for this parameter is in the variable `default-terminal-name'."
-    (interactive
-     (list (read-string (format "Terminal name (%s): " default-terminal-name)
-                        nil nil
-                        default-terminal-name
-                        nil)))
-    (rename-buffer name (term "/usr/bin/zsh")))
-
-  (exwm-input-set-key (kbd "s-t") 'open-new-terminal))
-
-
-;; misc settings
-(modify-syntax-entry ?_ "w")
-(modify-syntax-entry ?- "w")
-
-(setq tab-width 8)
-(setq c-basic-offset 8)
-
-(add-hook 'term-mode-hook
-   (lambda ()
-     ;; C-x is the prefix command, rather than C-c
-     (term-set-escape-char ?\C-x)))
 
 (use-package go-mode
   :ensure t
