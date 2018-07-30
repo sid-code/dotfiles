@@ -81,7 +81,7 @@
   (exwm-input-set-key (kbd "s-r") (lambda (command) (interactive (list (read-shell-command "$ ")))
                                     (start-process-shell-command command nil command)))
   (exwm-input-set-key (kbd "s-o")
-                      (lambda () (interactive) (start-process-shell-command "slock" nil "sudo /home/ANT.AMAZON.COM/sidharku/code/slock/slock")))
+                      (lambda () (interactive) (start-process "" nil "/usr/bin/slock")))
   (exwm-input-set-key (kbd "s-<return>")
                       (lambda () (interactive) (start-process "" nil "/usr/bin/urxvt")))
   (exwm-input-set-key (kbd "s-c")
