@@ -181,6 +181,18 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :bind (("C-c C-/" . counsel-grep)))
 
+(use-package projectile
+  :ensure t
+  :defer t
+  :hook ((prog-mode-hook . projectile-mode))
+  :init
+  (setq projectile-keymap-prefix (kbd "C-x p")))
+
+(use-package counsel-projectile
+  :ensure t
+  :defer t
+  :bind (:map projectile-mode-map ("C-x p f" . counsel-projectile)))
+
 (use-package tramp
   :ensure t
   :defer t
