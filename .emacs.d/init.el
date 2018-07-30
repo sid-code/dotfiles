@@ -8,6 +8,14 @@
 (prefer-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 
+;; load essential packages
+(require 'package)
+(package-initialize t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+
+(require 'use-package)
+(setq use-package-verbose t)
 ;; general-configuration
 
 
@@ -35,13 +43,7 @@
 
 (set-face-attribute 'default nil :height 110)
 
-;; packages
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 
-(require 'use-package)
-(setq use-package-verbose t)
 
 (use-package neotree
   :defer t)
