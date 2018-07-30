@@ -230,15 +230,14 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :config
   (require 'evil-magit))
+
 (use-package evil
   :ensure t
   :defer t
   :init
   (evil-mode 1)
   :config
-  (evil-define-key 'normal evil-normal-state-map
-    "ZQ" 'with-editor-cancel
-    "ZZ" 'with-editor-finish)
+  (define-key evil-normal-state-map (kbd "Z Z") 'server-edit)
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
 
