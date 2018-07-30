@@ -18,30 +18,41 @@
 (setq use-package-verbose t)
 ;; general-configuration
 
+(defvar sid/homedir "/home/ANT.AMAZON.COM/sidharku" "Home directory.")
 
+;; misc configuration
 (progn
   (setq confirm-nonexistent-file-or-buffer t)
   (menu-bar-mode -1)
+
   (xterm-mouse-mode 1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (fringe-mode 0)
+
   (setq winner-dont-bind-my-keys t)
   (winner-mode 1)
+
   (display-battery-mode 1)
+
+  (set-face-attribute 'default nil :height 125)
+
+  (setq tab-width 8)
   (setq c-default-style "bsd")
+
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
 
   (setq display-time-24hr-format t)
   (setq display-time-format "%H:%M - %d %B %Y")
   (display-time-mode t))
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+;; Release C-c in term-- use C-x as prefix key
+(eval-after-load "term"
+  '(progn (term-set-escape-char ?\C-x)
+          (define-key term-raw-map (kbd "C-c") 'term-send-raw)))
 
 (server-start)
-
-(set-face-attribute 'default nil :height 110)
 
 ;; exwm
 (load-file "~/.emacs.d/exwm-init.el")
@@ -138,14 +149,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
 
   (exwm-input-set-key (kbd "s-t") 'open-new-terminal))
 
-
-;; misc settings
-
-(setq tab-width 8)
-
-(eval-after-load "term"
-  '(progn (term-set-escape-char ?\C-x)
-          (define-key term-raw-map (kbd "C-c") 'term-send-raw)))
 
 (use-package neotree
   :defer t)
