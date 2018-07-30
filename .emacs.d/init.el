@@ -3,19 +3,31 @@
 ;;; this is a file Emacs runs on startup
 ;;; Code:
 
+(toggle-debug-on-error)
+
 (prefer-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 
 ;; general-configuration
+
+
 (progn
+  (setq confirm-nonexistent-file-or-buffer t)
   (menu-bar-mode -1)
   (xterm-mouse-mode 1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (fringe-mode 0)
+  (setq winner-dont-bind-my-keys t)
   (winner-mode 1)
-  (display-time-mode t)
-  (display-battery-mode 1))
+  (display-battery-mode 1)
+  (setq c-default-style "bsd")
+
+  (setq display-time-24hr-format t)
+  (setq display-time-format "%H:%M - %d %B %Y")
+  (display-time-mode t))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
 
