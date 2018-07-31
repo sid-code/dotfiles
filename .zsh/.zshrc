@@ -15,9 +15,10 @@ plugins=(git archlinux z)
 source $ZSH/oh-my-zsh.sh
 # }}}
 
-source $ZDOTDIR/aliases.sh
-source $ZDOTDIR/funcs.sh
-source $ZDOTDIR/vars.sh
+for file in $ZDOTDIR/*.sh; do
+    echo "Sourcing $file"
+    source $file
+done
 
 bindkey "^?" backward-delete-char
 
