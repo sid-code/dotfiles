@@ -3,11 +3,6 @@
 ;;; this is a file Emacs runs on startup
 ;;; Code:
 
-(toggle-debug-on-error)
-
-(prefer-coding-system 'utf-8)
-(set-language-environment "UTF-8")
-
 ;; load essential packages
 (require 'package)
 (package-initialize t)
@@ -16,6 +11,9 @@
 
 (require 'use-package)
 (setq use-package-verbose t)
+
+(set-face-attribute 'default t :font "Noto Sans Mono:style=Regular")
+
 ;; general-configuration
 
 (defvar sid/homedir "/home/ANT.AMAZON.COM/sidharku" "Home directory.")
@@ -438,12 +436,14 @@ The default value for this parameter is in the variable `default-terminal-name'.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(doc-view-continuous t)
- '(org-babel-load-languages '((C . t) (emacs-lisp . t)))
+ '(org-babel-load-languages (quote ((C . t) (emacs-lisp . t))))
  '(package-selected-packages
-   '(cquery-mode cquery lsp-mode google-this dix-evil pdf-tools nim-mode epa-file org-mode org-journal emms w3m simpleclip webpaste web-mode matlab-mode all-the-icons-dired neotree doom-themes company tide csv-mode use-package flycheck volume pulseaudio-control markdown-mode ess polymode smart-mode-line auctex pc-bufsw multi-term magit evil-magit smart-tabs-mode switch-window exwm projectile helm go-mode nlinum evil))
- '(reb-re-syntax 'string)
+   (quote
+    (dmenu cquery-mode cquery lsp-mode google-this dix-evil pdf-tools nim-mode epa-file org-mode org-journal emms w3m simpleclip webpaste web-mode matlab-mode all-the-icons-dired neotree doom-themes company tide csv-mode use-package flycheck volume pulseaudio-control markdown-mode ess polymode smart-mode-line auctex pc-bufsw multi-term magit evil-magit smart-tabs-mode switch-window exwm projectile helm go-mode nlinum evil)))
+ '(reb-re-syntax (quote string))
  '(select-enable-clipboard nil)
  '(tramp-default-method "ssh"))
 (custom-set-faces

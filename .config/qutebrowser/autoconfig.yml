@@ -3,5 +3,5 @@
 
 config_version: 2
 settings:
-  content.geolocation:
-    global: ask
+  fonts.monospace:
+    global: '"monospace"'
