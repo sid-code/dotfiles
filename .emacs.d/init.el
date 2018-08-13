@@ -350,13 +350,13 @@ The default value for this parameter is in the variable `default-terminal-name'.
 (use-package cquery
   :ensure t
   :defer t
-  :config
+  :init
   (setq cquery-executable "/usr/bin/cquery")
   (defun cquery//enable ()
     (condition-case nil
         (lsp-cquery-enable)
       (user-error nil)))
-  :init (add-hook 'c-mode-hook #'cquery//enable))
+  (add-hook 'c-mode-hook #'cquery//enable))
 
 (use-package lsp-java
   :ensure t
