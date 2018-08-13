@@ -3,33 +3,150 @@
 ;;; this is a file Emacs runs on startup
 ;;; Code:
 
-(prefer-coding-system 'utf-8)
-(set-language-environment "UTF-8")
-
-;; general-configuration
-(progn
-  (menu-bar-mode -1)
-  (xterm-mouse-mode 1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (fringe-mode 0)
-  (winner-mode 1)
-  (display-time-mode t)
-  (display-battery-mode 1))
-
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
-
-(server-start)
-
-(set-face-attribute 'default nil :height 110)
-
-;; packages
+;; load essential packages
 (require 'package)
+(package-initialize t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 
 (require 'use-package)
 (setq use-package-verbose t)
+
+(set-face-attribute 'default t :font "Noto Sans Mono:style=Regular")
+
+;; general-configuration
+
+(defvar sid/homedir "/home/ANT.AMAZON.COM/sidharku" "Home directory.")
+
+;; misc configuration
+(progn
+  (setq confirm-nonexistent-file-or-buffer t)
+  (menu-bar-mode -1)
+
+  (xterm-mouse-mode 1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (fringe-mode 0)
+
+  (setq winner-dont-bind-my-keys t)
+  (winner-mode 1)
+
+  (display-battery-mode 1)
+
+  (set-face-attribute 'default nil :height 125)
+
+  (setq tab-width 8)
+  (setq c-default-style "bsd")
+
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+
+  (setq display-time-24hr-format t)
+  (setq display-time-format "%H:%M - %d %B %Y")
+  (display-time-mode t))
+
+;; Release C-c in term-- use C-x as prefix key
+(eval-after-load "term"
+  '(progn (term-set-escape-char ?\C-x)
+          (define-key term-raw-map (kbd "C-c") 'term-send-raw)))
+
+(server-start)
+
+;; exwm
+(load-file "~/.emacs.d/exwm-init.el")
+
+;; keybinds
+(progn
+
+  ;(global-set-key "\C-cl" 'org-store-link)
+  ;(global-set-key "\C-ca" 'org-agenda)
+  ;(global-set-key "\C-cc" 'org-capture)
+  ;(global-set-key "\C-cb" 'org-iswitchb)
+
+  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
+  (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
+  (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
+
+  (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
+
+  (dotimes (i 10)
+    (exwm-input-set-key (kbd (format "s-%d" i))
+                        `(lambda ()
+                           (interactive)
+                           (exwm-workspace-switch-create ,i))))
+
+  (exwm-input-set-key (kbd "s-R") (lambda () (interactive) (call-interactively #'exwm-reset)))
+  (exwm-input-set-key (kbd "s-r") (lambda (command) (interactive (list (read-shell-command "$ ")))
+                                    (start-process-shell-command command nil command)))
+  (exwm-input-set-key (kbd "s-o")
+                      (lambda () (interactive) (start-process "" nil "/usr/bin/slock")))
+  (exwm-input-set-key (kbd "s-<return>")
+                      (lambda () (interactive) (start-process "" nil "/usr/bin/urxvt")))
+  (exwm-input-set-key (kbd "s-c")
+                      (lambda() (interactive) (start-process "" nil "/home/sid/bin/qute-launch")))
+
+  (exwm-input-set-key (kbd "s-C") #'kill-buffer-and-window)
+
+  (exwm-input-set-key (kbd "s-i")
+                      (lambda () (interactive) (call-interactively #'exwm-input-release-keyboard)))
+  (exwm-input-set-key (kbd "s-<escape>")
+                      (lambda () (interactive) (call-interactively #'exwm-input-grab-keyboard)))
+
+  (exwm-input-set-key (kbd "s-<f2>")
+                      (lambda () (interactive)
+                        (shell-command "/home/sid/code/dwmbar/dwmstatus/rawstatus --once")))
+
+  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
+         (progn
+           (call-interactively 'multi-term-dedicated-toggle)
+           (if (window-valid-p multi-term-dedicated-window)
+               (call-interactively 'multi-term-dedicated-select))))
+
+  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select)
+
+  (exwm-input-set-key (kbd "s-q") 'delete-window)
+  (exwm-input-set-key (kbd "s-h") 'windmove-left)
+  (exwm-input-set-key (kbd "s-j") 'windmove-down)
+  (exwm-input-set-key (kbd "s-k") 'windmove-up)
+  (exwm-input-set-key (kbd "s-l") 'windmove-right)
+
+  (exwm-input-set-key (kbd "s-L") (lambda () (interactive)
+                                    (call-interactively #'split-window-right)
+                                    (call-interactively #'windmove-right)))
+  (exwm-input-set-key (kbd "s-J") (lambda () (interactive)
+                                    (call-interactively #'split-window-below)
+                                    (call-interactively #'windmove-down)))
+  (exwm-input-set-key (kbd "s-H") 'split-window-right)
+  (exwm-input-set-key (kbd "s-K") 'split-window-below)
+  (exwm-input-set-key (kbd "s-x") (lambda () (interactive)
+                                    (call-interactively #'exwm-floating-toggle-floating)))
+
+  (defun sid/buffer-search-switch (bufname)
+    "Switch to window containing a buffer named (exactly) BUFNAME.  Do nothing if not possible."
+    (let ((matches (get-buffer-window-list bufname)))
+      (if matches
+          (select-window (car matches))
+        nil)))
+  (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox")))
+
+  (defvar default-terminal-name "term"
+    "The default name of a terminal when using `open-new-terminal'.")
+
+  (defun open-new-terminal (name)
+    "Opens a new terminal named NAME.
+NAME can be interactively provided.
+The default value for this parameter is in the variable `default-terminal-name'."
+    (interactive
+     (list (read-string (format "Terminal name (%s): " default-terminal-name)
+                        nil nil
+                        default-terminal-name
+                        nil)))
+    (rename-buffer name (term "/usr/bin/zsh")))
+
+  (exwm-input-set-key (kbd "s-t") 'open-new-terminal))
+
 
 (use-package neotree
   :defer t)
@@ -52,6 +169,10 @@
 (use-package ivy
   :ensure t
   :init
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  :bind (("C-x C-f" . counsel-find-file)
+         ("C-x b" . counsel-find-buffer))
   :config
   (ivy-mode)
   (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done))
@@ -60,6 +181,18 @@
   :ensure t
   :defer t
   :bind (("C-c C-/" . counsel-grep)))
+
+(use-package projectile
+  :ensure t
+  :defer t
+  :hook ((prog-mode-hook . projectile-mode))
+  :init
+  (setq projectile-keymap-prefix (kbd "C-x p")))
+
+(use-package counsel-projectile
+  :ensure t
+  :defer t
+  :bind (:map projectile-mode-map ("C-x p f" . counsel-projectile)))
 
 (use-package tramp
   :ensure t
@@ -98,15 +231,14 @@
   :defer t
   :config
   (require 'evil-magit))
+
 (use-package evil
   :ensure t
   :defer t
   :init
   (evil-mode 1)
   :config
-  (evil-define-key 'normal evil-normal-state-map
-    "ZQ" 'with-editor-cancel
-    "ZZ" 'with-editor-finish)
+  (define-key evil-normal-state-map (kbd "Z Z") 'server-edit)
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
 
@@ -115,10 +247,18 @@
   :defer t
   :init
   (setq-default indent-tabs-mode nil)
-  (smart-tabs-insinuate 'c 'c++)
+  (smart-tabs-insinuate 'c 'c++ 'java)
+  (smart-tabs-mode)
 
   :config
-  (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode t))))
+  (add-hook 'java-mode-hook (lambda ()
+                              (setq c-basic-offset 4
+                                    tab-width 4
+                                    indent-tabs-mode t)))
+  (add-hook 'c-mode-common-hook (lambda ()
+                                  (setq c-basic-offset 8
+                                        tab-width 8
+                                        indent-tabs-mode t))))
 
 (use-package pc-bufsw
   :defer t
@@ -236,103 +376,6 @@
   :hook ((before-save . tide-format-before-save)
          (typescript-mode . setup-tide-mode)))
 
-;; exwm
-(load-file "~/.emacs.d/exwm-init.el")
-
-;; keybinds
-(progn
-
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cc" 'org-capture)
-  (global-set-key "\C-cb" 'org-iswitchb)
-
-  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
-  (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
-  (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
-
-  (dotimes (i 10)
-    (exwm-input-set-key (kbd (format "s-%d" i))
-                        `(lambda ()
-                           (interactive)
-                           (exwm-workspace-switch-create ,i))))
-
-  (exwm-input-set-key (kbd "s-R") (lambda () (interactive) (call-interactively #'exwm-reset)))
-  (exwm-input-set-key (kbd "s-r") (lambda (command) (interactive (list (read-shell-command "$ ")))
-                                    (start-process-shell-command command nil command)))
-  (exwm-input-set-key (kbd "s-o")
-                      (lambda () (interactive) (start-process "" nil "/usr/bin/slock")))
-  (exwm-input-set-key (kbd "s-<return>")
-                      (lambda () (interactive) (start-process "" nil "/usr/bin/urxvt")))
-  (exwm-input-set-key (kbd "s-c")
-                      (lambda() (interactive) (start-process "" nil "/home/sid/bin/qute-launch")))
-
-  (exwm-input-set-key (kbd "s-C") #'kill-buffer-and-window)
-
-  (exwm-input-set-key (kbd "s-i")
-                      (lambda () (interactive) (call-interactively #'exwm-input-release-keyboard)))
-  (exwm-input-set-key (kbd "s-<escape>")
-                      (lambda () (interactive) (call-interactively #'exwm-input-grab-keyboard)))
-
-  (exwm-input-set-key (kbd "s-<f2>")
-                      (lambda () (interactive)
-                        (shell-command "/home/sid/code/dwmbar/dwmstatus/rawstatus --once")))
-  
-  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
-         (progn
-           (call-interactively 'multi-term-dedicated-toggle)
-           (if (window-valid-p multi-term-dedicated-window)
-               (call-interactively 'multi-term-dedicated-select))))
-  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select)
-
-  (exwm-input-set-key (kbd "s-q") 'delete-window)
-  (exwm-input-set-key (kbd "s-h") 'windmove-left)
-  (exwm-input-set-key (kbd "s-j") 'windmove-down)
-  (exwm-input-set-key (kbd "s-k") 'windmove-up)
-  (exwm-input-set-key (kbd "s-l") 'windmove-right)
-
-  (exwm-input-set-key (kbd "s-L") (lambda () (interactive)
-                                    (call-interactively #'split-window-right)
-                                    (call-interactively #'windmove-right)))
-  (exwm-input-set-key (kbd "s-J") (lambda () (interactive)
-                                    (call-interactively #'split-window-below)
-                                    (call-interactively #'windmove-down)))
-  (exwm-input-set-key (kbd "s-H") 'split-window-right)
-  (exwm-input-set-key (kbd "s-K") 'split-window-below)
-  (exwm-input-set-key (kbd "s-x") (lambda () (interactive)
-                                    (call-interactively #'exwm-floating-toggle-floating)))
-
-  (defvar default-terminal-name "term"
-    "The default name of a terminal when using `open-new-terminal'.")
-
-  (defun open-new-terminal (name)
-    "Opens a new terminal named NAME.
-NAME can be interactively provided.
-The default value for this parameter is in the variable `default-terminal-name'."
-    (interactive
-     (list (read-string (format "Terminal name (%s): " default-terminal-name)
-                        nil nil
-                        default-terminal-name
-                        nil)))
-    (rename-buffer name (term "/usr/bin/zsh")))
-
-  (exwm-input-set-key (kbd "s-t") 'open-new-terminal))
-
-
-;; misc settings
-(modify-syntax-entry ?_ "w")
-(modify-syntax-entry ?- "w")
-
-(setq tab-width 8)
-(setq c-basic-offset 8)
-
-(add-hook 'term-mode-hook
-   (lambda ()
-     ;; C-x is the prefix command, rather than C-c
-     (term-set-escape-char ?\C-x)))
-
 (use-package go-mode
   :ensure t
   :defer t
@@ -342,10 +385,10 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :ensure t
   :defer t
   :init
-  (setq nimsuggest-path "/home/sid/bin/nimsuggest")
-  :hook ((nim-mode-hook . nimsuggest-mode)
-         (nimsuggest-mode-hook . company-mode)
-         (nimsuggest-mode-hook . flycheck-mode)))
+  (setq nimsuggest-path (concat sid/homedir "-NOPE/bin/nimsuggest")))
+  ;:hook ((nim-mode-hook . nimsuggest-mode)
+  ;       (nimsuggest-mode-hook . company-mode)
+  ;       (nimsuggest-mode-hook . flycheck-mode)))
 
 (use-package cquery
   :ensure t
@@ -358,12 +401,22 @@ The default value for this parameter is in the variable `default-terminal-name'.
       (user-error nil)))
   (add-hook 'c-mode-hook #'cquery//enable))
 
+(use-package lsp-mode
+  :ensure t
+  :defer t
+  :init)
+
 (use-package lsp-java
   :ensure t
   :defer t
+  :config
+  (setq lsp-java--workspace-folders (list "TBA"))
+  (add-hook 'java-mode-hook (lambda ()
+                              (lsp-java-enable)
+                              (company-mode)
+                              (lsp-ui-mode)))
   :init
-  (setq lsp-java--workspace-folders (list "~/code/mws-example"))
-  (add-hook 'java-mode-hook #'lsp-java-enable))
+  (require 'lsp-java))
 
 (use-package lsp-ui
   :ensure t
@@ -383,12 +436,14 @@ The default value for this parameter is in the variable `default-terminal-name'.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(doc-view-continuous t)
- '(org-babel-load-languages '((C . t) (emacs-lisp . t)))
+ '(org-babel-load-languages (quote ((C . t) (emacs-lisp . t))))
  '(package-selected-packages
-   '(cquery-mode cquery lsp-mode google-this dix-evil pdf-tools nim-mode epa-file org-mode org-journal emms w3m simpleclip webpaste web-mode matlab-mode all-the-icons-dired neotree doom-themes company tide csv-mode use-package flycheck volume pulseaudio-control markdown-mode ess polymode smart-mode-line auctex pc-bufsw multi-term magit evil-magit smart-tabs-mode switch-window exwm projectile helm go-mode nlinum evil))
- '(reb-re-syntax 'string)
+   (quote
+    (dmenu cquery-mode cquery lsp-mode google-this dix-evil pdf-tools nim-mode epa-file org-mode org-journal emms w3m simpleclip webpaste web-mode matlab-mode all-the-icons-dired neotree doom-themes company tide csv-mode use-package flycheck volume pulseaudio-control markdown-mode ess polymode smart-mode-line auctex pc-bufsw multi-term magit evil-magit smart-tabs-mode switch-window exwm projectile helm go-mode nlinum evil)))
+ '(reb-re-syntax (quote string))
  '(select-enable-clipboard nil)
  '(tramp-default-method "ssh"))
 (custom-set-faces

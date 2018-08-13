@@ -134,7 +134,7 @@ c.url.start_pages = 'about:blank'
 # Default monospace fonts. Whenever "monospace" is used in a font
 # setting, it's replaced with the fonts listed here.
 # Type: Font
-c.fonts.monospace = '"DejaVu Sans Mono for Powerline", "xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+c.fonts.monospace = '"Noto Sans Mono"'
 
 # Bindings for normal mode
 config.bind('<', ':back')
@@ -146,6 +146,3 @@ config.bind('gj', ':scroll-page 0 1')
 config.bind('gk', ':scroll-page 0 -1')
 config.bind('gt', ':tab-next')
 config.bind('t', ':set-cmd-text -s :open -t')
-
-with config.pattern("*://boards.4chan.org/*") as p:
-    p.bindings.commands['r'] = 'nop'

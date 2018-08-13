@@ -3,6 +3,7 @@ export GOPATH="$HOME/code/go"
 export ANDROID_HOME="$HOME/Android/Sdk/"
 
 # Add new PATH entries here
+export PATH="$HOME/Nim/bin:$PATH"
 export PATH="$HOME/.nimble/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$GOPATH/bin"

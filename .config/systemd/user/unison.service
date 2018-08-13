@@ -1,0 +1,14 @@
+[Unit]
+Description=Unison sync with remote directory
+After=network.target
+
+[Service]
+Environment=HOME=/home/sid
+Environment=SSH_AUTH_SOCK=/home/sid/ssh_auth_sock
+ExecStartPre=/usr/bin/bash -l -c 'echo "$SSH_AUTH_SOCK" > /tmp/debug'
+ExecStart=/usr/bin/unison /home/sid/sync ssh://ric/sync -repeat watch -batch
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
