@@ -385,7 +385,7 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :ensure t
   :defer t
   :init
-  (setq nimsuggest-path (concat sid/homedir "-NOPE/bin/nimsuggest")))
+  (setq nimsuggest-path nil))
   ;:hook ((nim-mode-hook . nimsuggest-mode)
   ;       (nimsuggest-mode-hook . company-mode)
   ;       (nimsuggest-mode-hook . flycheck-mode)))
