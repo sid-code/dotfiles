@@ -131,21 +131,21 @@
         nil)))
   (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox")))
 
-  (defvar default-terminal-name "term"
+  (defvar sid/default-terminal-name "term"
     "The default name of a terminal when using `open-new-terminal'.")
 
-  (defun open-new-terminal (name)
+  (defun sid/open-new-terminal (name)
     "Opens a new terminal named NAME.
 NAME can be interactively provided.
 The default value for this parameter is in the variable `default-terminal-name'."
     (interactive
-     (list (read-string (format "Terminal name (%s): " default-terminal-name)
+     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
                         nil nil
-                        default-terminal-name
+                        sid/default-terminal-name
                         nil)))
     (rename-buffer name (term "/usr/bin/zsh")))
 
-  (exwm-input-set-key (kbd "s-t") 'open-new-terminal))
+  (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal))
 
 
 (use-package neotree
