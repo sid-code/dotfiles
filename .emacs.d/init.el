@@ -172,27 +172,27 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
   :bind (("C-x C-f" . counsel-find-file)
-         ("C-x b" . counsel-find-buffer))
+         ("C-x b" . ivy-switch-buffer)
+         ("M-x" . counsel-M-x))
   :config
   (ivy-mode)
   (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done))
 
 (use-package counsel
   :ensure t
-  :defer t
-  :bind (("C-c C-/" . counsel-grep)))
+  :defer t)
 
 (use-package projectile
   :ensure t
   :defer t
-  :hook ((prog-mode-hook . projectile-mode))
   :init
   (setq projectile-keymap-prefix (kbd "C-x p")))
 
 (use-package counsel-projectile
   :ensure t
   :defer t
-  :bind (:map projectile-mode-map ("C-x p f" . counsel-projectile)))
+  :bind (:map projectile-mode-map ("C-x p f" . counsel-projectile)
+         :map projectile-mode-map ("C-x C-/" . counsel-projectile-ag)))
 
 (use-package tramp
   :ensure t
