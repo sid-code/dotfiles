@@ -5,18 +5,15 @@
 
 ;; load essential packages
 (require 'package)
-(package-initialize t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 
 (require 'use-package)
 (setq use-package-verbose t)
 
-(set-face-attribute 'default t :font "Noto Sans Mono:style=Regular")
-
 ;; general-configuration
 
-(defvar sid/homedir "/home/ANT.AMAZON.COM/sidharku" "Home directory.")
+(defvar sid/homedir "/home/sid" "Home directory.")
 
 ;; misc configuration
 (progn
