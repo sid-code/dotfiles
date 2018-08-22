@@ -30,7 +30,12 @@
 
   (display-battery-mode 1)
 
-  (set-face-attribute 'default nil :height 125)
+  (set-face-attribute
+   'default nil
+   :height (cond
+            ((string-equal (system-name) "harth") 115)
+            ((string-equal (system-name) "doa") 120)
+            (t 115)))
 
   (setq tab-width 8)
   (setq c-default-style "bsd")
