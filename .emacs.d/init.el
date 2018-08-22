@@ -239,6 +239,11 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
 
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode t))
+
 (use-package smart-tabs-mode
   :ensure t
   :defer t
