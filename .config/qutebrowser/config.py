@@ -29,6 +29,15 @@ c.session.lazy_restore = True
 # Type: Bool
 c.auto_save.session = True
 
+# Which cookies to accept.
+# Type: String
+# Valid values:
+#   - all: Accept all cookies.
+#   - no-3rdparty: Accept cookies from the same origin only.
+#   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
+#   - never: Don't accept cookies at all.
+c.content.cookies.accept = 'all'
+
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'file://*')
@@ -70,6 +79,18 @@ c.input.insert_mode.plugins = False
 # Rounding radius (in pixels) for the edges of prompts.
 # Type: Int
 c.prompt.radius = 0
+
+# Open new tabs (middleclick/ctrl+click) in the background.
+# Type: Bool
+c.tabs.background = True
+
+# Mouse button with which to close tabs.
+# Type: String
+# Valid values:
+#   - right: Close tabs on right-click.
+#   - middle: Close tabs on middle-click.
+#   - none: Don't close tabs using the mouse.
+c.tabs.close_mouse_button = 'middle'
 
 # How to behave when the last tab is closed.
 # Type: String

@@ -30,7 +30,12 @@
 
   (display-battery-mode 1)
 
-  (set-face-attribute 'default nil :height 125)
+  (set-face-attribute
+   'default nil
+   :height (cond
+            ((string-equal (system-name) "harth") 115)
+            ((string-equal (system-name) "doa") 120)
+            (t 115)))
 
   (setq tab-width 8)
   (setq c-default-style "bsd")
@@ -232,6 +237,11 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (define-key evil-normal-state-map (kbd "Z Z") 'server-edit)
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
+
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode t))
 
 (use-package smart-tabs-mode
   :ensure t
