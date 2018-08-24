@@ -54,12 +54,6 @@
 
 ;; keybinds
 (progn
-
-  ;(global-set-key "\C-cl" 'org-store-link)
-  ;(global-set-key "\C-ca" 'org-agenda)
-  ;(global-set-key "\C-cc" 'org-capture)
-  ;(global-set-key "\C-cb" 'org-iswitchb)
-
   (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
   (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
   (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
@@ -324,6 +318,7 @@ The default value for this parameter is in the variable `default-terminal-name'.
 (use-package org
   :ensure t
   :defer t
+  :bind (("s-a" . org-agenda))
   :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
@@ -332,6 +327,13 @@ The default value for this parameter is in the variable `default-terminal-name'.
   ;; hahahaah just kidding this doesn't work
   (setcar (nthcdr 2 (car (nthcdr 2 org-latex-regexps))) 4)
   (setcar (nthcdr 4 org-emphasis-regexp-components) 4)
+
+  ;; org-agenda
+  (setq org-agenda-sorting-strategy
+        '((agenda habit-down time-up priority-down category-keep)
+          (todo priority-down category-keep deadline-up)
+          (tags priority-down catgory-keep)
+          (search category-keep)))
 
   (require 'ob-ditaa)
   (defun my-org-confirm-babel-evaluate (lang body)
