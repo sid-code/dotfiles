@@ -65,6 +65,8 @@
 
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
+  (global-set-key (kbd "C-x C-r") 'rename-buffer)
+
   (dotimes (i 10)
     (exwm-input-set-key (kbd (format "s-%d" i))
                         `(lambda ()
