@@ -1,4 +1,4 @@
-export EDITOR="nvim"
+export EDITOR="emacsclient -a /usr/bin/vim"
 export GOPATH="$HOME/code/go"
 export ANDROID_HOME="$HOME/Android/Sdk/"
 
