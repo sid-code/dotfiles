@@ -276,11 +276,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
                                         tab-width 8
                                         indent-tabs-mode t))))
 
-(use-package pc-bufsw
-  :defer t
-  :bind (("s-<tab>" . pc-bufsw-mru)
-         ("s-`" . pc-bufsw-lru)))
-
 (use-package flycheck
   :defer t
   :ensure t
