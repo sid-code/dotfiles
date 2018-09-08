@@ -79,6 +79,7 @@
 
   (exwm-input-set-key (kbd "s-<tab>") 'sid/exwm-workspace-switch-last)
 
+  (exwm-input-set-key (kbd "s-`") (lambda () (interactive) (exwm-workspace-switch 0)))
   (dotimes (i 10)
     (exwm-input-set-key (kbd (format "s-%d" i))
                         `(lambda ()
