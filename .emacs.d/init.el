@@ -67,6 +67,18 @@
 
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
 
+  (defvar sid/exwm-last-workspace exwm-workspace--current "The last active EXWM workspace.")
+  (defun sid/exwm-record-last-workspace (orig-fn &rest args)
+    (setq sid/exwm-last-workspace exwm-workspace--current)
+    (apply orig-fn args))
+
+  (defun sid/exwm-workspace-switch-last () (interactive)
+    (exwm-workspace-switch sid/exwm-last-workspace))
+
+  (advice-add 'exwm-workspace-switch :around #'sid/exwm-record-last-workspace)
+
+  (exwm-input-set-key (kbd "s-<tab>") 'sid/exwm-workspace-switch-last)
+
   (dotimes (i 10)
     (exwm-input-set-key (kbd (format "s-%d" i))
                         `(lambda ()
