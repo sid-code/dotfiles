@@ -155,6 +155,9 @@ Use BASE-PATH as the base path."
   (exwm-input-set-key (kbd "s-x") (lambda () (interactive)
                                     (call-interactively #'exwm-floating-toggle-floating)))
 
+  (exwm-input-set-key (kbd "<pause>") (lambda () (interactive)
+                                        (start-process "" nil "/home/sid/bin/unipause")))
+
   (defun sid/buffer-search-switch (bufname)
     "Switch to window containing a buffer named (exactly) BUFNAME.  Do nothing if not possible."
     (let ((matches (get-buffer-window-list bufname)))
