@@ -221,7 +221,8 @@ The default value for this parameter is in the variable `default-terminal-name'.
 
 (use-package counsel
   :ensure t
-  :defer t)
+  :defer t
+  :bind (("C-x C-/" . counsel-ag)))
 
 (use-package projectile
   :ensure t
