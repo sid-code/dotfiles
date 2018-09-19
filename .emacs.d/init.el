@@ -284,6 +284,17 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
 
+(use-package workgroups
+  :ensure t)
+
+(use-package persp-mode
+  :ensure t
+  :defer t
+  :config
+  (persp-set-keymap-prefix (kbd "C-x C-p"))
+  (setq wg-morph-on nil)
+  (setq persp-autokill-buffer-on-remove 'kill-weak))
+
 (use-package which-key
   :ensure t
   :init
