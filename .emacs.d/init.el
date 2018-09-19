@@ -186,6 +186,12 @@ The default value for this parameter is in the variable `default-terminal-name'.
 (use-package neotree
   :defer t)
 
+(use-package pdf-tools
+  :ensure t
+  :defer t
+  :bind (:map pdf-view-mode-map ("j" . pdf-view-next-line-or-next-page)
+         :map pdf-view-mode-map ("k" . pdf-view-previous-line-or-previous-page)))
+
 (use-package doom-themes
   :init
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
