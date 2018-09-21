@@ -35,6 +35,7 @@
    :height (cond
             ((string-equal (system-name) "harth") 115)
             ((string-equal (system-name) "doa") 120)
+            ((string-equal (system-name) "archlinux") 100)
             (t 115)))
 
   (setq tab-width 8)
