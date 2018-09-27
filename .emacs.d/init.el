@@ -85,6 +85,9 @@ Use BASE-PATH as the base path."
   (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
   (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
 
+  (exwm-input-set-key (kbd "s-z") 'winner-undo)
+  (exwm-input-set-key (kbd "s-y") 'winner-redo)
+
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
