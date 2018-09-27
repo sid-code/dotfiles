@@ -402,8 +402,10 @@ The default value for this parameter is in the variable `default-terminal-name'.
           (search category-keep)))
 
   (require 'ob-ditaa)
+  (require 'ob-dot)
   (defun my-org-confirm-babel-evaluate (lang body)
-    (not (string= lang "ditaa")))  ; don't ask for ditaa
+    (not (or (string= lang "dot")
+             (string= lang "ditaa"))))  ; don't ask for these
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar"))
 
