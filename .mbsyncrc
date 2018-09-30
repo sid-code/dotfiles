@@ -1,0 +1,114 @@
+CopyArrivalDate yes
+
+
+Create Both
+Expunge Both
+SyncState *
+
+IMAPAccount g1
+Host imap.gmail.com
+User kulkarnisidharth1@gmail.com
+PassCmd "pass show Mail/kulkarnisidharth1@gmail.com"
+SSLType IMAPS
+AuthMechs LOGIN
+
+IMAPStore g1-remote
+Account g1
+
+MaildirStore g1-local
+Path ~/mail/g1/
+Inbox ~/mail/g1/inbox
+
+Channel g1-inbox
+Master :g1-remote:
+Slave :g1-local:
+Patterns "INBOX"
+
+Channel g1-sent
+Master :g1-remote:"[Gmail]/Sent Mail"
+Slave :g1-local:sent
+
+Channel g1-trash
+Master :g1-remote:"[Gmail]/Trash"
+Slave :g1-local:trash
+
+Channel g1-drafts
+Master :g1-remote:"[Gmail]/Drafts"
+Slave :g1-local:drafts
+
+Group g1
+Channel g1-inbox
+Channel g1-sent
+Channel g1-trash
+
+IMAPAccount g2
+Host imap.gmail.com
+User kulkarnisidharth2@gmail.com
+PassCmd "pass show Mail/kulkarnisidharth2@gmail.com"
+SSLType IMAPS
+AuthMechs LOGIN
+
+IMAPStore g2-remote
+Account g2
+
+MaildirStore g2-local
+Path ~/mail/g2/
+Inbox ~/mail/g2/inbox
+
+Channel g2-inbox
+Master :g2-remote:
+Slave :g2-local:
+Patterns "INBOX"
+
+Channel g2-sent
+Master :g2-remote:"[Gmail]/Sent Mail"
+Slave :g2-local:sent
+
+Channel g2-trash
+Master :g2-remote:"[Gmail]/Trash"
+Slave :g2-local:trash
+
+Channel g2-drafts
+Master :g2-remote:"[Gmail]/Drafts"
+Slave :g2-local:drafts
+
+Group g2
+Channel g2-inbox
+Channel g2-sent
+Channel g2-trash
+
+IMAPAccount asu
+Host imap.gmail.com
+User skulka20@asu.edu
+PassCmd "pass show Mail/skulka20@asu.edu"
+SSLType IMAPS
+AuthMechs LOGIN
+
+IMAPStore asu-remote
+Account asu
+
+MaildirStore asu-local
+Path ~/mail/asu/
+Inbox ~/mail/asu/inbox
+
+Channel asu-inbox
+Master :asu-remote:
+Slave :asu-local:
+Patterns "INBOX"
+
+Channel asu-sent
+Master :asu-remote:"[Gmail]/Sent Mail"
+Slave :asu-local:sent
+
+Channel asu-trash
+Master :asu-remote:"[Gmail]/Trash"
+Slave :asu-local:trash
+
+Channel asu-drafts
+Master :asu-remote:"[Gmail]/Drafts"
+Slave :asu-local:drafts
+
+Group asu
+Channel asu-inbox
+Channel asu-sent
+Channel asu-trash
