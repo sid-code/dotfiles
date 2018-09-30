@@ -491,6 +491,39 @@ The default value for this parameter is in the variable `default-terminal-name'.
 ;;  :init
 ;;  (google-this-mode 1))
 
+(use-package notmuch
+  :defer
+  :config
+  (setq mail-user-agent 'message-user-agent
+        user-mail-address "kulkarnisidharth1@gmail.com"
+        user-full-name "Sidharth Kulkarni"
+        smtpmail-smpt-server "smtp.gmail.com"
+        message-send-mail-function 'message-smtp-send-it)
+
+  (defun sid/exec-mbsync ()
+    "Execute mbsync"
+    (interactive)
+    (set-process-sentinel
+     (start-process-shell-command "mbsync"
+                                  "*mbsync*"
+                                  "mbsync -a")
+     '(lambda (process event)
+        (notmuch-refresh-all-buffers)
+        (let ((w (get-buffer-window "*mbsync*")))
+          (when w
+            (with-selected-window w (recenter window-end))))))
+
+    (popwin:display-buffer "*mbsync*"))
+
+  (add-to-list 'popwin:special-display-config
+               '("*mbsync*"
+                 :dedicated t
+                 :stick t
+                 :position bottom
+                 :height 0.4
+                 :noselect t)))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
