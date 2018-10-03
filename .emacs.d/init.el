@@ -4,6 +4,13 @@
 ;;; Code:
 
 ;; load essential packages
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
@@ -196,21 +203,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :bind (:map pdf-view-mode-map ("j" . pdf-view-next-line-or-next-page)
          :map pdf-view-mode-map ("k" . pdf-view-previous-line-or-previous-page)))
-
-(use-package doom-themes
-  :init
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
-  :config
-  (load-theme 'doom-vibrant t)
-
-  (doom-themes-visual-bell-config)
-
-  (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
 
 (use-package ivy
   :ensure t
@@ -490,6 +482,7 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 
 (use-package mingus
@@ -531,19 +524,40 @@ The default value for this parameter is in the variable `default-terminal-name'.
          :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
          :map notmuch-show-mode-map ("d" . sid/notmuch-archive)))
 
+
+;(use-package rcirc
+;  :ensure t
+;  :defer t
+;  
+;  :hook ((rcirc-mode . rcirc-omit-mode))
+;  :config
+;  (setq rcirc-server-alist
+;        '(("donot.violates.me"
+;           :encryption tls
+;           :port 7776
+;           :nick "bozaloshtsh/freenode"
+;           :password "bozaloshtsh:***REMOVED***"
+;           :full-name "bozaloshtsh"
+;           :channels ("#emacs" "#nim"))))
+;  
+;  :init
+;  (rcirc-track-minor-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(doc-view-continuous t)
- '(org-agenda-files '("~/sync/org/school.org"))
- '(org-babel-load-languages '((C . t) (emacs-lisp . t)))
+ '(org-agenda-files (quote ("~/sync/org/school.org")))
+ '(org-babel-load-languages (quote ((C . t) (emacs-lisp . t))))
  '(package-selected-packages
-   '(which-key counsel-projectile dmenu cquery-mode cquery lsp-mode google-this dix-evil pdf-tools nim-mode epa-file org-mode org-journal emms w3m simpleclip webpaste web-mode matlab-mode all-the-icons-dired neotree doom-themes company tide csv-mode use-package flycheck volume pulseaudio-control markdown-mode ess polymode smart-mode-line auctex pc-bufsw multi-term magit evil-magit smart-tabs-mode switch-window exwm projectile helm go-mode nlinum evil))
- '(reb-re-syntax 'string)
+   (quote
+    (gnuplot gnuplot-mode which-key counsel-projectile dmenu cquery-mode cquery lsp-mode google-this dix-evil pdf-tools nim-mode epa-file org-mode org-journal emms w3m simpleclip webpaste web-mode matlab-mode all-the-icons-dired neotree doom-themes company tide csv-mode use-package flycheck volume pulseaudio-control markdown-mode ess polymode smart-mode-line auctex pc-bufsw multi-term magit evil-magit smart-tabs-mode switch-window exwm projectile helm go-mode nlinum evil)))
+ '(reb-re-syntax (quote string))
  '(select-enable-clipboard nil)
  '(tramp-default-method "ssh"))
 (custom-set-faces
