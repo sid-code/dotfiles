@@ -35,6 +35,7 @@
    :height (cond
             ((string-equal (system-name) "harth") 115)
             ((string-equal (system-name) "doa") 120)
+            ((string-equal (system-name) "archlinux") 100)
             (t 115)))
 
   (setq tab-width 8)
@@ -84,6 +85,9 @@ Use BASE-PATH as the base path."
   (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
   (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
   (exwm-input-set-key (kbd "s-a") 'org-agenda)
+
+  (exwm-input-set-key (kbd "s-z") 'winner-undo)
+  (exwm-input-set-key (kbd "s-y") 'winner-redo)
 
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
@@ -398,8 +402,10 @@ The default value for this parameter is in the variable `default-terminal-name'.
           (search category-keep)))
 
   (require 'ob-ditaa)
+  (require 'ob-dot)
   (defun my-org-confirm-babel-evaluate (lang body)
-    (not (string= lang "ditaa")))  ; don't ask for ditaa
+    (not (or (string= lang "dot")
+             (string= lang "ditaa"))))  ; don't ask for these
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar"))
 
@@ -484,6 +490,7 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+<<<<<<< HEAD
 
 (use-package mingus
   :defer t
@@ -546,4 +553,3 @@ The default value for this parameter is in the variable `default-terminal-name'.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
