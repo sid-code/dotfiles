@@ -83,6 +83,7 @@ Use BASE-PATH as the base path."
   (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
   (exwm-input-set-key (kbd "s-m") 'exwm-workspace-move-window)
   (exwm-input-set-key (kbd "s-s") 'exwm-workspace-swap)
+  (exwm-input-set-key (kbd "s-a") 'org-agenda)
 
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
@@ -380,7 +381,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
 (use-package org
   :ensure t
   :defer t
-  :bind (("s-a" . org-agenda))
   :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
