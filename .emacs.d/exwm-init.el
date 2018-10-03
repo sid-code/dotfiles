@@ -19,11 +19,11 @@
                 exwm-manage-force-tiling t)
 
 
-  (setq exwm-randr-workspace-output-plist '(2 "HDMI-A-0"))
-  (add-hook 'exwm-randr-screen-change-hook
-            (lambda ()
-              (start-process-shell-command
-               "xrandr" nil "xrandr --output HDMI-A-0 --auto --left-of eDP")))
+  (defun sid/exwm-randr-screen-change ()
+    (start-process-shell-command "xrandr" nil "xrandr --output LVDS-1 --auto")
+    (start-process-shell-command "xrandr" nil "xrandr --output HDMI-1 --auto --left-of LVDS-1"))
+  (setq exwm-randr-workspace-output-plist '(2 "HDMI-1"))
+  (add-hook 'exwm-randr-screen-change-hook #'sid/exwm-randr-screen-change)
   (exwm-randr-enable)
 
   (add-hook 'exwm-update-class-hook
