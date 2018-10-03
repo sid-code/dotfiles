@@ -484,12 +484,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-  
-;;(use-package google-this
-;;  :ensure t
-;;  :defer t
-;;  :init
-;;  (google-this-mode 1))
 
 (use-package mingus
   :defer t
