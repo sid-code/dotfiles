@@ -491,6 +491,13 @@ The default value for this parameter is in the variable `default-terminal-name'.
 ;;  :init
 ;;  (google-this-mode 1))
 
+(use-package mingus
+  :defer t
+  :config
+  (add-hook 'mingus-browse-hook 'evil-emacs-state)
+  (add-hook 'mingus-help-hook 'evil-emacs-state)
+  (add-hook 'mingus-playlist-hooks 'evil-emacs-state)) ;hookS?
+
 (use-package notmuch
   :defer
   :config
