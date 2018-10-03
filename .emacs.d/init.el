@@ -508,29 +508,28 @@ The default value for this parameter is in the variable `default-terminal-name'.
         smtpmail-smpt-server "smtp.gmail.com"
         message-send-mail-function 'message-smtp-send-it)
 
+  (setq notmuch-search-oldest-first nil)
+
   (defun sid/exec-mbsync ()
     "Execute mbsync"
     (interactive)
     (set-process-sentinel
      (start-process-shell-command "mbsync"
                                   "*mbsync*"
-                                  "mbsync -a")
+                                  "mbsync -a && notmuch new")
      '(lambda (process event)
         (notmuch-refresh-all-buffers)
         (let ((w (get-buffer-window "*mbsync*")))
           (when w
-            (with-selected-window w (recenter window-end))))))
+            (with-selected-window w (recenter window-end)))))))
 
-    (popwin:display-buffer "*mbsync*"))
+  (defun sid/notmuch-archive ()
+    (interactive)
+    (notmuch-show-tag-message "-inbox"))
 
-  (add-to-list 'popwin:special-display-config
-               '("*mbsync*"
-                 :dedicated t
-                 :stick t
-                 :position bottom
-                 :height 0.4
-                 :noselect t)))
-
+  :bind (:map notmuch-common-keymap ("S" . sid/exec-mbsync)
+         :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
+         :map notmuch-show-mode-map ("d" . sid/notmuch-archive)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
