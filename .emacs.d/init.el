@@ -482,8 +482,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 
 (use-package mingus
   :defer t
