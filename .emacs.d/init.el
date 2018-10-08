@@ -454,11 +454,16 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :init
   (setq cquery-executable "/usr/bin/cquery")
-  (defun cquery//enable ()
+
+  (defun sid/cquery-enable ()
+    (interactive)
+    "Enable cquery for the current buffer"
+
     (condition-case nil
         (lsp-cquery-enable)
       (user-error nil)))
-  (add-hook 'c-mode-hook #'cquery//enable))
+
+  (add-hook 'c-mode-hook #'sid/cquery-enable))
 
 (use-package lsp-mode
   :ensure t
