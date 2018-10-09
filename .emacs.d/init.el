@@ -99,6 +99,7 @@ Use BASE-PATH as the base path."
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
+  (exwm-input-set-key (kbd "C-x M-f") 'sid/find-class)
 
   (defvar sid/exwm-last-workspace exwm-workspace--current "The last active EXWM workspace.")
   (defun sid/exwm-record-last-workspace (orig-fn &rest args)
