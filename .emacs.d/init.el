@@ -453,11 +453,16 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :init
   (setq cquery-executable "/usr/bin/cquery")
-  (defun cquery//enable ()
+
+  (defun sid/cquery-enable ()
+    (interactive)
+    "Enable cquery for the current buffer"
+
     (condition-case nil
         (lsp-cquery-enable)
       (user-error nil)))
-  (add-hook 'c-mode-hook #'cquery//enable))
+
+  (add-hook 'c-mode-hook #'sid/cquery-enable))
 
 (use-package lsp-mode
   :ensure t
@@ -517,9 +522,12 @@ The default value for this parameter is in the variable `default-terminal-name'.
     (interactive)
     (notmuch-show-tag-message "-inbox"))
 
+  :init
+  (require 'notmuch)
+
   :bind (:map notmuch-common-keymap ("S" . sid/exec-mbsync)
          :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
-         :map notmuch-show-mode-map ("d" . sid/notmuch-archive)))
+         :map notmuch-show-mode-map ("D" . notmuch-show-archive-thread)))
 
 
 ;(use-package rcirc
