@@ -194,9 +194,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal))
 
 
-(use-package neotree
-  :defer t)
-
 (use-package pdf-tools
   :ensure t
   :defer t
