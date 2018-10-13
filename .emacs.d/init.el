@@ -534,25 +534,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
          :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
          :map notmuch-show-mode-map ("D" . notmuch-show-archive-thread)))
 
-
-;(use-package rcirc
-;  :ensure t
-;  :defer t
-;  
-;  :hook ((rcirc-mode . rcirc-omit-mode))
-;  :config
-;  (setq rcirc-server-alist
-;        '(("donot.violates.me"
-;           :encryption tls
-;           :port 7776
-;           :nick "bozaloshtsh/freenode"
-;           :password "bozaloshtsh:***REMOVED***"
-;           :full-name "bozaloshtsh"
-;           :channels ("#emacs" "#nim"))))
-;  
-;  :init
-;  (rcirc-track-minor-mode))
-
 ;; custom stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
