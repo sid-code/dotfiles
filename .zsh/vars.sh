@@ -6,6 +6,7 @@ export ANDROID_HOME="$HOME/Android/Sdk/"
 export PATH="$HOME/Nim/bin:$PATH"
 export PATH="$HOME/.nimble/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/sync/bin"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.npm-global/bin"
 
