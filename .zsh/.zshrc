@@ -22,7 +22,9 @@ done
 
 bindkey "^?" backward-delete-char
 
-#eval "$(direnv hook zsh)"
+if which direnv &>/dev/null ; then
+    eval "$(direnv hook zsh)"
+fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
