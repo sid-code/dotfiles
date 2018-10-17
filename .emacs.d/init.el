@@ -96,6 +96,7 @@ Use BASE-PATH as the base path."
 
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
+  (global-set-key (kbd "C-x C-x") (lambda () (interactive) (switch-to-buffer nil)))
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
   (exwm-input-set-key (kbd "C-x M-f") 'sid/find-class)
 
