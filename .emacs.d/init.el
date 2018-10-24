@@ -96,6 +96,7 @@ Use BASE-PATH as the base path."
 
   (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
 
+  (global-set-key (kbd "C-x C-x") (lambda () (interactive) (switch-to-buffer nil)))
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
   (exwm-input-set-key (kbd "C-x M-f") 'sid/find-class)
 
@@ -167,7 +168,7 @@ Use BASE-PATH as the base path."
                                     (call-interactively #'exwm-floating-toggle-floating)))
 
   (exwm-input-set-key (kbd "<pause>") (lambda () (interactive)
-                                        (start-process "" nil "/home/sid/bin/unipause")))
+                                        (start-process "" nil "/home/sid/sync/bin/unipause")))
 
   (defun sid/buffer-search-switch (bufname)
     "Switch to window containing a buffer named (exactly) BUFNAME.  Do nothing if not possible."
@@ -193,9 +194,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
 
   (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal))
 
-
-(use-package neotree
-  :defer t)
 
 (use-package pdf-tools
   :ensure t
@@ -509,6 +507,14 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (add-hook 'mingus-help-hook 'evil-emacs-state)
   (add-hook 'mingus-playlist-hooks 'evil-emacs-state)) ;hookS?
 
+(use-package emms
+  :defer t
+  :config
+  (require 'emms-setup)
+  (require 'emms-mode-line)
+  (emms-minimalistic)
+  (setq emms-player-list '(emms-player-mpv)))
+
 (use-package notmuch
   :defer
   :config
@@ -544,6 +550,7 @@ The default value for this parameter is in the variable `default-terminal-name'.
          :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
          :map notmuch-show-mode-map ("D" . notmuch-show-archive-thread)))
 
+<<<<<<< HEAD
 
 ;(use-package rcirc
 ;  :ensure t
@@ -563,6 +570,8 @@ The default value for this parameter is in the variable `default-terminal-name'.
 ;  :init
 ;  (rcirc-track-minor-mode))
 
+=======
+>>>>>>> refs/remotes/origin/master
 ;; custom stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
