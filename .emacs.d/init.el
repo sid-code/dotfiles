@@ -140,16 +140,6 @@ Use BASE-PATH as the base path."
                       (lambda () (interactive)
                         (shell-command "/home/sid/code/dwmbar/dwmstatus/rawstatus --once")))
 
-  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
-         (progn
-           (call-interactively 'multi-term-dedicated-toggle)
-           (if (window-valid-p multi-term-dedicated-window)
-               (call-interactively 'multi-term-dedicated-select))))
-
-  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select)
-
   (exwm-input-set-key (kbd "s-q") 'delete-window)
   (exwm-input-set-key (kbd "s-h") 'windmove-left)
   (exwm-input-set-key (kbd "s-j") 'windmove-down)
@@ -176,23 +166,9 @@ Use BASE-PATH as the base path."
       (if matches
           (select-window (car matches))
         nil)))
-  (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox")))
+  (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox"))))
 
-  (defvar sid/default-terminal-name "term"
-    "The default name of a terminal when using `open-new-terminal'.")
 
-  (defun sid/open-new-terminal (name)
-    "Opens a new terminal named NAME.
-NAME can be interactively provided.
-The default value for this parameter is in the variable `default-terminal-name'."
-    (interactive
-     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
-                        nil nil
-                        sid/default-terminal-name
-                        nil)))
-    (rename-buffer name (term "/usr/bin/zsh")))
-
-  (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal))
 
 
 (use-package pdf-tools
@@ -277,6 +253,39 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (define-key evil-normal-state-map (kbd "Z Z") 'server-edit)
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode))
+
+(use-package multi-term
+  :ensure t
+  :config
+  (add-to-list 'term-bind-key-alist '("M-." . term-send-raw-meta))
+
+  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
+         (progn
+           (call-interactively 'multi-term-dedicated-toggle)
+           (if (window-valid-p multi-term-dedicated-window)
+               (call-interactively 'multi-term-dedicated-select))))
+
+  (defvar sid/default-terminal-name "term"
+    "The default name of a terminal when using `open-new-terminal'.")
+
+  (setq multi-term-program "/usr/bin/zsh")
+  (defun sid/open-new-terminal (name)
+    "Opens a new terminal named NAME.
+NAME can be interactively provided.
+The default value for this parameter is in the variable `default-terminal-name'."
+    (interactive
+     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
+                        nil nil
+                        sid/default-terminal-name
+                        nil)))
+    (rename-buffer name (multi-term)))
+
+  (define-key term-raw-map (kbd "ESC ESC") 'term-send-esc)
+
+  (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal)
+  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select))
 
 (use-package workgroups
   :ensure t)
