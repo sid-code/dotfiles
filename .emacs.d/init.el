@@ -22,6 +22,8 @@
 (defvar sid/with-exwm t "Are we using EXWM?")
 (defvar sid/config-module-basepath user-emacs-directory
   "Directory where extra config modules are to be loaded.")
+(defvar sid/config-override-basepath (concat sid/config-module-basepath "override/")
+  "Directory where override modules are to be loaded.")
 
 (defvar sid/system-id
   (let ((hname (system-name)))
@@ -30,9 +32,20 @@
   "The name we will use to identify this system.")
 
 (defun sid/load-config-module (name)
-  "Load a configuration module by name NAME.  Do NOT specify .el."
+  "Load a configuration module by NAME.  Do not specify .el."
   (interactive)
+  (message (expand-file-name (concat name ".el") sid/config-module-basepath))
   (load-file (expand-file-name (concat name ".el") sid/config-module-basepath)))
+
+(defun sid/load-override-module ()
+  "Load a override module by NAME for the current system."
+  (interactive)
+  (let ((fname (expand-file-name
+                (concat sid/system-id ".el")
+                sid/config-override-basepath)))
+    (if (file-exists-p fname)
+        (load-file fname)
+      (message (format "could not find override file: %s" fname)))))
 
 
 ;; misc configuration
@@ -76,13 +89,15 @@
 
 (server-start)
 
-;; exwm
-;(load-file "~/.emacs.d/exwm-init.el")
-;; exwm-input-set-key shim
-(defun exwm-input-set-key (key fun)
-  (global-set-key key fun))
+(sid/load-override-module)
 
-;; keybinds
+(if sid/with-exwm
+    (sid/load-config-module "exwm-config")
+  (defun exwm-input-set-key (key val)
+    "Forward KEY and VAL to global-set-key."
+    (global-set-key key val)))
+
+;; universal keybinds
 (progn
   (exwm-input-set-key (kbd "s-a") 'org-agenda)
 
