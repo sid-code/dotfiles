@@ -496,8 +496,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
          :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
          :map notmuch-show-mode-map ("D" . notmuch-show-archive-thread)))
 
-<<<<<<< HEAD
-
 ;(use-package rcirc
 ;  :ensure t
 ;  :defer t
@@ -516,8 +514,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
 ;  :init
 ;  (rcirc-track-minor-mode))
 
-=======
->>>>>>> refs/remotes/origin/master
 ;; custom stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
