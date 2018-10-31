@@ -47,6 +47,7 @@
         (load-file fname)
       (message (format "could not find override file: %s" fname)))))
 
+(defvar sid/shell-program "/usr/bin/zsh" "My shell program.")
 
 ;; misc configuration
 (progn
@@ -255,7 +256,7 @@
   (defvar sid/default-terminal-name "term"
     "The default name of a terminal when using `open-new-terminal'.")
 
-  (setq multi-term-program "/usr/bin/zsh")
+  (setq multi-term-program sid/shell-program)
   (defun sid/open-new-terminal (name)
     "Opens a new terminal named NAME.
 NAME can be interactively provided.
