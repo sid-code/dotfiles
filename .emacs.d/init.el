@@ -137,23 +137,9 @@
       (if matches
           (select-window (car matches))
         nil)))
-  (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox")))
+  (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox"))))
 
-  (defvar sid/default-terminal-name "term"
-    "The default name of a terminal when using `open-new-terminal'.")
 
-  (defun sid/open-new-terminal (name)
-    "Opens a new terminal named NAME.
-NAME can be interactively provided.
-The default value for this parameter is in the variable `default-terminal-name'."
-    (interactive
-     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
-                        nil nil
-                        sid/default-terminal-name
-                        nil)))
-    (rename-buffer name (term "/usr/bin/zsh")))
-
-  (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal))
 
 
 (use-package pdf-tools
@@ -252,10 +238,69 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :config
   (define-key evil-normal-state-map (kbd "Z Z") 'server-edit)
   (delete 'term-mode evil-insert-state-modes)
-  (add-to-list 'evil-emacs-state-modes 'term-mode))
+  (add-to-list 'evil-emacs-state-modes 'term-mode)
+  (delete 'circe-mode evil-insert-state-modes)
+  (add-to-list 'evil-emacs-state-modes 'circe-mode))
+
+(use-package multi-term
+  :ensure t
+  :config
+  (add-to-list 'term-bind-key-alist '("M-." . term-send-raw-meta))
+
+  (defun sid/multi-term-dedicated-toggle-smart () (interactive)
+         (progn
+           (call-interactively 'multi-term-dedicated-toggle)
+           (if (window-valid-p multi-term-dedicated-window)
+               (call-interactively 'multi-term-dedicated-select))))
+
+  (defvar sid/default-terminal-name "term"
+    "The default name of a terminal when using `open-new-terminal'.")
+
+  (setq multi-term-program "/usr/bin/zsh")
+  (defun sid/open-new-terminal (name)
+    "Opens a new terminal named NAME.
+NAME can be interactively provided.
+The default value for this parameter is in the variable `default-terminal-name'."
+    (interactive
+     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
+                        nil nil
+                        sid/default-terminal-name
+                        nil)))
+    (rename-buffer name (multi-term)))
+
+  (define-key term-raw-map (kbd "ESC ESC") 'term-send-esc)
+
+  (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal)
+  (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
+  (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select))
+
+(use-package circe
+  :ensure t
+  :defer t
+  :config
+  (defun circe-init ()
+    "Initialize circe, with passwords."
+    (interactive)
+    (require 'password-store)
+    (setq circe-reduce-lurker-spam t
+          circe-format-say "<{nick}> {body}"
+          circe-network-options
+          (let ((znc-password (concat "bozaloshtsh:" (password-store-get "znc"))))
+            `(("znc-freenode"
+               :host "skulk.org"
+               :port 7776
+               :tls t
+               :nick "bozaloshtsh/freenode"
+               :pass ,znc-password))))
+
+    (require 'circe-color-nicks)
+    (enable-circe-color-nicks)
+    (circe "znc-freenode")))
 
 (use-package workgroups
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package persp-mode
   :ensure t
@@ -292,6 +337,13 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :defer t
   :ensure t
   :init (global-flycheck-mode))
+
+(use-package flycheck-mypy
+  :ensure t
+  :defer t
+  :config
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint))
 
 (use-package auctex
   :defer t

@@ -6,7 +6,7 @@ After=network.target
 Environment=HOME=/home/sid
 Environment=SSH_AUTH_SOCK=/home/sid/ssh_auth_sock
 ExecStartPre=/usr/bin/bash -l -c 'echo "$SSH_AUTH_SOCK" > /tmp/debug'
-ExecStart=/usr/bin/bash -l -c '/usr/bin/unison /home/sid/sync ssh://ric/sync -repeat watch -batch 2>&1'
+ExecStart=/usr/bin/bash -l -c '/usr/bin/unison /home/sid/sync ssh://ric/sync -repeat watch -batch 2>/tmp/unison-error-log'
 Restart=on-failure
 RestartSec=3
 
