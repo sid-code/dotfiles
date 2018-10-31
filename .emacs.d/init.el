@@ -19,6 +19,21 @@
 ;; general-configuration
 
 (defvar sid/homedir "/home/sid" "Home directory.")
+(defvar sid/with-exwm t "Are we using EXWM?")
+(defvar sid/config-module-basepath user-emacs-directory
+  "Directory where extra config modules are to be loaded.")
+
+(defvar sid/system-id
+  (let ((hname (system-name)))
+    (cond ((string-equal hname "IT5514.local") "tgenmac")
+          (t hname)))
+  "The name we will use to identify this system.")
+
+(defun sid/load-config-module (name)
+  "Load a configuration module by name NAME.  Do NOT specify .el."
+  (interactive)
+  (load-file (expand-file-name (concat name ".el") sid/config-module-basepath)))
+
 
 ;; misc configuration
 (progn
