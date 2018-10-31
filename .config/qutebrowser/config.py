@@ -38,6 +38,20 @@ c.auto_save.session = True
 #   - never: Don't accept cookies at all.
 c.content.cookies.accept = 'all'
 
+# A list of patterns that should always be loaded, despite being ad-
+# blocked. Note this whitelists blocked hosts, not first-party URLs. As
+# an example, if `example.org` loads an ad from `ads.example.org`, the
+# whitelisted host should be `ads.example.org`. If you want to disable
+# the adblocker on a given page, use the `content.host_blocking.enabled`
+# setting with a URL pattern instead. Local domains are always exempt
+# from hostblocking.
+# Type: List of UrlPattern
+c.content.host_blocking.whitelist = ['thepiratebay.org']
+
+# Enable JavaScript.
+# Type: Bool
+c.content.javascript.enabled = True
+
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'file://*')
@@ -106,7 +120,8 @@ c.tabs.last_close = 'ignore'
 # Type: Bool
 c.tabs.mousewheel_switching = False
 
-# Position of new tabs opened from another tab.
+# Position of new tabs opened from another tab. See
+# `tabs.new_position.stacking` for controlling stacking behavior.
 # Type: NewTabPosition
 # Valid values:
 #   - prev: Before the current tab.
@@ -115,7 +130,8 @@ c.tabs.mousewheel_switching = False
 #   - last: At the end.
 c.tabs.new_position.related = 'next'
 
-# Position of new tabs which aren't opened from another tab.
+# Position of new tabs which are not opened from another tab. See
+# `tabs.new_position.stacking` for controlling stacking behavior.
 # Type: NewTabPosition
 # Valid values:
 #   - prev: Before the current tab.
@@ -157,13 +173,20 @@ c.url.start_pages = 'about:blank'
 # Type: Font
 c.fonts.monospace = '"Noto Sans Mono"'
 
+# This setting can be used to map keys to other keys. When the key used
+# as dictionary-key is pressed, the binding for the key used as
+# dictionary-value is invoked instead. This is useful for global
+# remappings of keys, for example to map Ctrl-[ to Escape. Note that
+# when a key is bound (via `bindings.default` or `bindings.commands`),
+# the mapping is ignored.
+# Type: Dict
+c.bindings.key_mappings = {'<Ctrl+6>': '<Ctrl+^>', '<Ctrl+Enter>': '<Ctrl+Return>', '<Ctrl+j>': '<Return>', '<Ctrl+m>': '<Return>', '<Ctrl+[>': '<Escape>', '<Enter>': '<Return>', '<Shift+Enter>': '<Return>', '<Shift+Return>': '<Return>'}
+
 # Bindings for normal mode
 config.bind('<', ':back')
 config.bind('>', ':forward')
 config.bind('b', 'set-cmd-text -s :buffer')
-config.bind('co', None)
 config.bind('gT', ':tab-prev')
 config.bind('gj', ':scroll-page 0 1')
 config.bind('gk', ':scroll-page 0 -1')
 config.bind('gt', ':tab-next')
-config.bind('t', ':set-cmd-text -s :open -t')
