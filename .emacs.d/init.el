@@ -177,6 +177,21 @@ Use BASE-PATH as the base path."
   :bind (:map pdf-view-mode-map ("j" . pdf-view-next-line-or-next-page)
          :map pdf-view-mode-map ("k" . pdf-view-previous-line-or-previous-page)))
 
+(use-package avy
+  :ensure t
+  :defer t
+
+  :config
+  (evil-define-key 'normal 'global "S" nil)
+  (evil-define-key 'normal 'global "SA" 'avy-goto-char)
+  (evil-define-key 'normal 'global "SS" 'avy-goto-char-2)
+  (evil-define-key 'normal 'global "SD" 'avy-goto-char-timer)
+  (evil-define-key 'normal 'global "Sw" 'avy-goto-word-1)
+  (evil-define-key 'normal 'global "SW" 'avy-goto-word-0)
+  (evil-define-key 'normal 'global "SL" 'avy-goto-line)
+  :bind (("C-:" . avy-goto-char)
+         ("C-;" . avy-goto-char-2)))
+
 (use-package ivy
   :ensure t
   :init
@@ -577,6 +592,28 @@ The default value for this parameter is in the variable `default-terminal-name'.
          :map notmuch-search-mode-map ("d" . notmuch-search-archive-thread)
          :map notmuch-show-mode-map ("D" . notmuch-show-archive-thread)))
 
+<<<<<<< HEAD
+
+;(use-package rcirc
+;  :ensure t
+;  :defer t
+;  
+;  :hook ((rcirc-mode . rcirc-omit-mode))
+;  :config
+;  (setq rcirc-server-alist
+;        '(("donot.violates.me"
+;           :encryption tls
+;           :port 7776
+;           :nick "bozaloshtsh/freenode"
+;           :password "bozaloshtsh:wend111"
+;           :full-name "bozaloshtsh"
+;           :channels ("#emacs" "#nim"))))
+;  
+;  :init
+;  (rcirc-track-minor-mode))
+
+=======
+>>>>>>> refs/remotes/origin/master
 ;; custom stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
