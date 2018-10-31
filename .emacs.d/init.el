@@ -139,8 +139,7 @@
         nil)))
   (exwm-input-set-key (kbd "s-f") (lambda () (interactive) (sid/buffer-search-switch "Firefox"))))
 
-
-
+(sid/load-config-module "schoolnav")
 
 (use-package pdf-tools
   :ensure t
