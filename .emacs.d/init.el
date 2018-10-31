@@ -252,7 +252,9 @@ Use BASE-PATH as the base path."
   :config
   (define-key evil-normal-state-map (kbd "Z Z") 'server-edit)
   (delete 'term-mode evil-insert-state-modes)
-  (add-to-list 'evil-emacs-state-modes 'term-mode))
+  (add-to-list 'evil-emacs-state-modes 'term-mode)
+  (delete 'circe-mode evil-insert-state-modes)
+  (add-to-list 'evil-emacs-state-modes 'circe-mode))
 
 (use-package multi-term
   :ensure t
@@ -286,6 +288,29 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
   (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
   (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select))
+
+(use-package circe
+  :ensure t
+  :defer t
+  :config
+  (defun circe-init ()
+    "Initialize circe, with passwords."
+    (interactive)
+    (require 'password-store)
+    (setq circe-reduce-lurker-spam t
+          circe-format-say "<{nick}> {body}"
+          circe-network-options
+          (let ((znc-password (concat "bozaloshtsh:" (password-store-get "znc"))))
+            `(("znc-freenode"
+               :host "skulk.org"
+               :port 7776
+               :tls t
+               :nick "bozaloshtsh/freenode"
+               :pass ,znc-password))))
+
+    (require 'circe-color-nicks)
+    (enable-circe-color-nicks)
+    (circe "znc-freenode")))
 
 (use-package workgroups
   :ensure t)
