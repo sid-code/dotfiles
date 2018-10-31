@@ -313,7 +313,8 @@ The default value for this parameter is in the variable `default-terminal-name'.
     (circe "znc-freenode")))
 
 (use-package workgroups
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package persp-mode
   :ensure t
