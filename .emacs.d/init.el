@@ -575,14 +575,6 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (add-hook 'mingus-help-hook 'evil-emacs-state)
   (add-hook 'mingus-playlist-hooks 'evil-emacs-state)) ;hookS?
 
-(use-package emms
-  :defer t
-  :config
-  (require 'emms-setup)
-  (require 'emms-mode-line)
-  (emms-minimalistic)
-  (setq emms-player-list '(emms-player-mpv)))
-
 (use-package notmuch
   :defer
   :config
