@@ -13,6 +13,9 @@ alias agent="pkill ssh-agent;eval \$(ssh-agent);ssh-add"
 alias nc="nim c"
 alias ncr="nim c -r"
 
+alias py2env="source ~/.python2-venv/bin/activate"
+alias py3env="source ~/.python-venv/bin/activate"
+
 alias vim="emacsclient --alternate-editor=\"nvim\""
 
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
