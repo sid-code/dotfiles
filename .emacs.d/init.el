@@ -407,12 +407,27 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :ensure t
   :init (global-flycheck-mode))
 
+
 (use-package flycheck-mypy
   :ensure t
   :defer t
   :config
-  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
-  (add-to-list 'flycheck-disabled-checkers 'python-pylint))
+  (flycheck-define-checker
+      python-mypy ""
+      :command ("mypy"
+                "--ignore-missing-imports"
+                "--python-version" "3.6"
+                source-original)
+      :error-patterns
+      ((error line-start (file-name) ":" line ": error:" (message) line-end))
+      :modes python-mode)
+
+  (add-to-list 'flycheck-checkers 'python-mypy t)
+  (flycheck-add-next-checker 'python-pylint 'python-mypy t))
+
+(use-package elpy
+  :ensure t
+  :defer t)
 
 (use-package auctex
   :defer t
