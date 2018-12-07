@@ -78,6 +78,8 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
 
+  (setq select-enable-clipboard t)
+
   (setq display-time-24hr-format t)
   (setq display-time-format "%H:%M - %d %B %Y")
   (display-time-mode t))
