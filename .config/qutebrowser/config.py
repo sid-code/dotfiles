@@ -106,7 +106,8 @@ c.tabs.last_close = 'ignore'
 # Type: Bool
 c.tabs.mousewheel_switching = False
 
-# Position of new tabs opened from another tab.
+# Position of new tabs opened from another tab. See
+# `tabs.new_position.stacking` for controlling stacking behavior.
 # Type: NewTabPosition
 # Valid values:
 #   - prev: Before the current tab.
@@ -115,7 +116,8 @@ c.tabs.mousewheel_switching = False
 #   - last: At the end.
 c.tabs.new_position.related = 'next'
 
-# Position of new tabs which aren't opened from another tab.
+# Position of new tabs which are not opened from another tab. See
+# `tabs.new_position.stacking` for controlling stacking behavior.
 # Type: NewTabPosition
 # Valid values:
 #   - prev: Before the current tab.
