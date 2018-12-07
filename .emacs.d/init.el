@@ -471,10 +471,11 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :ensure t
   :defer t
   :init
-  (setq nimsuggest-path nil))
-  ;:hook ((nim-mode-hook . nimsuggest-mode)
-  ;       (nimsuggest-mode-hook . company-mode)
-  ;       (nimsuggest-mode-hook . flycheck-mode)))
+  (setq nimsuggest-path "/home/sid/Nim/bin/nimsuggest")
+  :hook ((nim-mode . (lambda () (setq evil-shift-width 2)))
+         (nim-mode . nimsuggest-mode)
+         (nimsuggest-mode . company-mode)
+         (nimsuggest-mode . flycheck-mode)))
 
 (use-package cquery
   :ensure t
