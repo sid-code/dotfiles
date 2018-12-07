@@ -247,8 +247,6 @@
 (use-package multi-term
   :ensure t
   :config
-  (add-to-list 'term-bind-key-alist '("M-." . term-send-raw-meta))
-
   (defun sid/multi-term-dedicated-toggle-smart () (interactive)
          (progn
            (call-interactively 'multi-term-dedicated-toggle)
@@ -259,22 +257,61 @@
     "The default name of a terminal when using `open-new-terminal'.")
 
   (setq multi-term-program sid/shell-program)
+
+  (defun sid/read-terminal-name ()
+    "Read a terminal name from the minibuffer."
+    (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
+                       nil nil
+                       sid/default-terminal-name
+                       nil)))
+
   (defun sid/open-new-terminal (name)
     "Opens a new terminal named NAME.
 NAME can be interactively provided.
 The default value for this parameter is in the variable `default-terminal-name'."
-    (interactive
-     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
-                        nil nil
-                        sid/default-terminal-name
-                        nil)))
-    (rename-buffer name (multi-term)))
+    (interactive (sid/read-terminal-name))
+    (let ((buf (multi-term)))
+      (rename-buffer name buf)
+      buf))
 
-  (define-key term-raw-map (kbd "ESC ESC") 'term-send-esc)
 
+  (defun sid/open-new-terminal-other-window (name)
+    (interactive (sid/read-terminal-name))
+    (let ((buf (sid/open-new-terminal name)))
+      (bury-buffer buf)
+      (switch-to-buffer-other-window buf)))
+
+  :init
+  (require 'multi-term)
+  ;; terminal keys
+  (setq term-unbind-key-list '("C-x" "C-c" "C-h" "C-y"))
+  (setq term-bind-key-alist
+        '(("C-c C-c" . term-interrupt-subjob)
+          ("C-c C-z" . term-stop-subjob)
+          ("ESC ESC" . term-send-esc)
+          ("C-p" . term-send-raw)
+          ("C-n" . term-send-raw)
+          ("C-s" . term-send-raw)
+          ("C-r" . term-send-raw)
+          ("C-m" . term-send-return)
+          ("C-y" . term-paste)
+          ("M-f" . term-send-forward-word)
+          ("M-b" . term-send-backward-word)
+          ("M-o" . term-send-backspace)
+          ("M-p" . previous-line)
+          ("M-n" . next-line)
+          ("M-M" . term-send-forward-kill-word)
+          ("M-N" . term-send-backward-kill-word)
+          ("<C-backspace>" . term-send-backward-kill-word)
+          ("M-r" . term-send-reverse-search-history)
+          ("M-d" . term-send-delete-word)
+          ("M-," . term-send-raw)
+          ("M-." . term-send-raw-meta)))
+
+  ;; global keys for managing terminals
   (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal)
+  (exwm-input-set-key (kbd "s-T") 'sid/open-new-terminal-other-window)
   (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
   (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select))
 
 (use-package circe
