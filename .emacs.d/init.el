@@ -272,6 +272,34 @@ The default value for this parameter is in the variable `default-terminal-name'.
 
   (define-key term-raw-map (kbd "ESC ESC") 'term-send-esc)
 
+  :init
+  (require 'multi-term)
+  ;; terminal keys
+  (setq term-unbind-key-list '("C-x" "C-c" "C-h" "C-y" "M-x"))
+  (setq term-bind-key-alist
+        '(("C-c C-c" . term-interrupt-subjob)
+          ("C-c C-z" . term-stop-subjob)
+          ("ESC ESC" . term-send-esc)
+          ("C-p" . term-send-raw)
+          ("C-n" . term-send-raw)
+          ("C-s" . term-send-raw)
+          ("C-r" . term-send-raw)
+          ("C-m" . term-send-return)
+          ("C-y" . term-paste)
+          ("M-f" . term-send-forward-word)
+          ("M-b" . term-send-backward-word)
+          ("M-o" . term-send-backspace)
+          ("M-p" . previous-line)
+          ("M-n" . next-line)
+          ("M-M" . term-send-forward-kill-word)
+          ("M-N" . term-send-backward-kill-word)
+          ("<C-backspace>" . term-send-backward-kill-word)
+          ("M-r" . term-send-reverse-search-history)
+          ("M-d" . term-send-delete-word)
+          ("M-," . term-send-raw)
+          ("M-." . term-send-raw-meta)))
+
+  ;; global keys for managing terminals
   (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal)
   (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
   (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
