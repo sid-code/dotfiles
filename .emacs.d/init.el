@@ -284,7 +284,7 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :init
   (require 'multi-term)
   ;; terminal keys
-  (setq term-unbind-key-list '("C-x" "C-c" "C-h" "C-y"))
+  (setq term-unbind-key-list '("C-x" "C-c" "C-h" "C-y" "M-x"))
   (setq term-bind-key-alist
         '(("C-c C-c" . term-interrupt-subjob)
           ("C-c C-z" . term-stop-subjob)
