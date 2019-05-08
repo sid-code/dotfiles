@@ -107,7 +107,7 @@
   (exwm-input-set-key (kbd "s-z") 'winner-undo)
   (exwm-input-set-key (kbd "s-y") 'winner-redo)
 
-  (global-set-key (kbd "s-Q") (lambda () (interactive) (other-window -1)))
+  (global-set-key (kbd "s-Q") 'delete-other-windows)
 
   (global-set-key (kbd "C-x C-x") (lambda () (interactive) (switch-to-buffer nil)))
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
