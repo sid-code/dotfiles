@@ -270,6 +270,12 @@
   (delete 'shell-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'shell-mode))
 
+
+(use-package comint
+  :defer t
+  :config
+  (setq comint-move-point-for-output t))
+
 (use-package multi-term
   :ensure t
   :config
