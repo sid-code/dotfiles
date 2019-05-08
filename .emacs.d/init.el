@@ -66,6 +66,7 @@
 
   (set-face-attribute
    'default nil
+   :family "Monospace"
    :height (cond
             ((string-equal sid/system-id "harth") 115)
             ((string-equal sid/system-id "doa") 120)
