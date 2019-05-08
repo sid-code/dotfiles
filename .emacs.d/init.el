@@ -266,7 +266,9 @@
   (delete 'term-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode)
   (delete 'circe-mode evil-insert-state-modes)
-  (add-to-list 'evil-emacs-state-modes 'circe-mode))
+  (add-to-list 'evil-emacs-state-modes 'circe-mode)
+  (delete 'shell-mode evil-insert-state-modes)
+  (add-to-list 'evil-emacs-state-modes 'shell-mode))
 
 (use-package multi-term
   :ensure t
