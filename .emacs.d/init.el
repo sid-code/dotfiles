@@ -57,7 +57,7 @@
   (xterm-mouse-mode 1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (fringe-mode 0)
+  (fringe-mode 1)
 
   (setq winner-dont-bind-my-keys t)
   (winner-mode 1)
