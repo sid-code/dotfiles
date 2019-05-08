@@ -74,7 +74,6 @@
             (t 115)))
 
   (setq tab-width 8)
-  (setq c-default-style "bsd")
 
   (defalias 'yes-or-no-p 'y-or-n-p)
   (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
