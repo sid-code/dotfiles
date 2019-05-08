@@ -568,28 +568,29 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :hook ((nim-mode . (lambda () (setq evil-shift-width 2)))
          (nim-mode . nimsuggest-mode)
          (nimsuggest-mode . company-mode)
-         (nimsuggest-mode . flycheck-mode)))
+         (nimsuggest-mode . flycheck-nimsuggest-setup)))
 
-(use-package cquery
+(use-package flycheck-nimsuggest
   :ensure t
-  :defer t
-  :init
-  (setq cquery-executable "/usr/bin/cquery")
-
-  (defun sid/cquery-enable ()
-    (interactive)
-    "Enable cquery for the current buffer"
-
-    (condition-case nil
-        (lsp-cquery-enable)
-      (user-error nil)))
-
-  (add-hook 'c-mode-hook #'sid/cquery-enable))
+  :defer t)
 
 (use-package lsp-mode
   :ensure t
   :defer t
   :init)
+
+(use-package ccls
+  :ensure t
+  :defer t
+  :init
+  (require 'ccls)
+  (setq ccls-executable "/usr/bin/ccls")
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda ()
+           (require 'ccls)
+	   (c-set-style "linux")
+           (setq-local evil-shift-width 8)
+           (lsp))))
 
 (use-package lsp-java
   :ensure t
