@@ -512,6 +512,15 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar"))
 
+(use-package org-ref
+  :ensure t
+  :defer t
+  :init
+
+  (setq org-latex-pdf-process
+        '("latexmk -pdflatex='pdflatex --shell-escape -interaction nonstopmode' -pdf -f %f"
+          "bibtex %f")))
+
 (use-package org-journal
   :ensure t
   :defer t
