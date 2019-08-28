@@ -134,6 +134,15 @@ c.tabs.new_position.unrelated = 'next'
 #   - last-used: Select the previously selected tab.
 c.tabs.select_on_remove = 'last-used'
 
+# Width (in pixels or as percentage of the window) of the tab bar if
+# it's vertical.
+# Type: PercOrInt
+c.tabs.width = 200
+
+# Enable tree-tabs mode.
+# Type: Bool
+c.tabs.tree_tabs = True
+
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.
 # Type: FuzzyUrl
