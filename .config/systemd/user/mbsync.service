@@ -4,5 +4,6 @@ After=network.target network-online.target dbus.socket
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/mbsync -Va
+Environment=DISPLAY=:0
+ExecStart=-/usr/bin/mbsync -Va
 ExecStartPost=/usr/bin/notmuch new
