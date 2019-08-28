@@ -144,6 +144,10 @@
 
 (sid/load-config-module "schoolnav")
 
+(use-package help
+  :config
+  (setq help-window-select 'other))
+
 (use-package doom-themes
   :config
   (require 'doom-themes)
