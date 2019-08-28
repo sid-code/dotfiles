@@ -126,6 +126,15 @@ c.tabs.new_position.related = 'next'
 #   - last: At the end.
 c.tabs.new_position.unrelated = 'next'
 
+# Position of the tab bar.
+# Type: Position
+# Valid values:
+#   - top
+#   - bottom
+#   - left
+#   - right
+c.tabs.position = 'left'
+
 # Which tab to select when the focused tab is removed.
 # Type: SelectOnRemove
 # Valid values:
