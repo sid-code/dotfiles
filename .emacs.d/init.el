@@ -208,7 +208,7 @@
 (use-package counsel
   :ensure t
   :defer t
-  :bind (("C-x C-/" . counsel-ag)))
+  :bind (("C-x C-/" . counsel-rg)))
 
 (use-package projectile
   :ensure t
