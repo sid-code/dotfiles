@@ -126,6 +126,15 @@ c.tabs.new_position.related = 'next'
 #   - last: At the end.
 c.tabs.new_position.unrelated = 'next'
 
+# Position of the tab bar.
+# Type: Position
+# Valid values:
+#   - top
+#   - bottom
+#   - left
+#   - right
+c.tabs.position = 'left'
+
 # Which tab to select when the focused tab is removed.
 # Type: SelectOnRemove
 # Valid values:
@@ -133,6 +142,15 @@ c.tabs.new_position.unrelated = 'next'
 #   - next: Select the tab which came after the closed one (right in horizontal, below in vertical).
 #   - last-used: Select the previously selected tab.
 c.tabs.select_on_remove = 'last-used'
+
+# Width (in pixels or as percentage of the window) of the tab bar if
+# it's vertical.
+# Type: PercOrInt
+c.tabs.width = 200
+
+# Enable tree-tabs mode.
+# Type: Bool
+c.tabs.tree_tabs = True
 
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.

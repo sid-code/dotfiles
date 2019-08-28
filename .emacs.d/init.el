@@ -133,6 +133,8 @@
 
   (exwm-input-set-key (kbd "<pause>") (lambda () (interactive)
                                         (start-process "" nil "/home/sid/sync/bin/unipause")))
+  (exwm-input-set-key (kbd "S-<pause>") (lambda () (interactive)
+                                        (start-process-shell-command "" nil "/home/sid/bin/rmpc toggle")))
 
   (defun sid/buffer-search-switch (bufname)
     "Switch to window containing a buffer named (exactly) BUFNAME.  Do nothing if not possible."
@@ -283,8 +285,6 @@
 (use-package multi-term
   :ensure t
   :config
-  (add-to-list 'term-bind-key-alist '("M-." . term-send-raw-meta))
-
   (defun sid/multi-term-dedicated-toggle-smart () (interactive)
          (progn
            (call-interactively 'multi-term-dedicated-toggle)
@@ -295,18 +295,29 @@
     "The default name of a terminal when using `open-new-terminal'.")
 
   (setq multi-term-program sid/shell-program)
+
+  (defun sid/read-terminal-name ()
+    "Read a terminal name from the minibuffer."
+    (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
+                       nil nil
+                       sid/default-terminal-name
+                       nil)))
+
   (defun sid/open-new-terminal (name)
     "Opens a new terminal named NAME.
 NAME can be interactively provided.
 The default value for this parameter is in the variable `default-terminal-name'."
-    (interactive
-     (list (read-string (format "Terminal name (%s): " sid/default-terminal-name)
-                        nil nil
-                        sid/default-terminal-name
-                        nil)))
-    (rename-buffer name (multi-term)))
+    (interactive (sid/read-terminal-name))
+    (let ((buf (multi-term)))
+      (rename-buffer name buf)
+      buf))
 
-  (define-key term-raw-map (kbd "ESC ESC") 'term-send-esc)
+
+  (defun sid/open-new-terminal-other-window (name)
+    (interactive (sid/read-terminal-name))
+    (let ((buf (sid/open-new-terminal name)))
+      (bury-buffer buf)
+      (switch-to-buffer-other-window buf)))
 
   :init
   (require 'multi-term)
@@ -337,8 +348,8 @@ The default value for this parameter is in the variable `default-terminal-name'.
 
   ;; global keys for managing terminals
   (exwm-input-set-key (kbd "s-t") 'sid/open-new-terminal)
+  (exwm-input-set-key (kbd "s-T") 'sid/open-new-terminal-other-window)
   (exwm-input-set-key (kbd "<f5>") 'sid/multi-term-dedicated-toggle-smart)
-  (global-set-key (kbd "s-<f5>") 'sid/multi-term-dedicated-toggle-smart)
   (exwm-input-set-key (kbd "<f6>") 'multi-term-dedicated-select))
 
 (use-package circe
@@ -404,12 +415,27 @@ The default value for this parameter is in the variable `default-terminal-name'.
   :ensure t
   :init (global-flycheck-mode))
 
+
 (use-package flycheck-mypy
   :ensure t
   :defer t
   :config
-  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
-  (add-to-list 'flycheck-disabled-checkers 'python-pylint))
+  (flycheck-define-checker
+      python-mypy ""
+      :command ("mypy"
+                "--ignore-missing-imports"
+                "--python-version" "3.6"
+                source-original)
+      :error-patterns
+      ((error line-start (file-name) ":" line ": error:" (message) line-end))
+      :modes python-mode)
+
+  (add-to-list 'flycheck-checkers 'python-mypy t)
+  (flycheck-add-next-checker 'python-pylint 'python-mypy t))
+
+(use-package elpy
+  :ensure t
+  :defer t)
 
 (use-package auctex
   :defer t
