@@ -162,10 +162,12 @@ c.fonts.monospace = '"Noto Sans Mono"'
 # Bindings for normal mode
 config.bind('<', ':back')
 config.bind('>', ':forward')
+config.bind('M', 'spawn mpv {url}')
+config.bind('O', 'hint links spawn openurl {hint-url}')
 config.bind('b', 'set-cmd-text -s :buffer')
-config.bind('co', None)
 config.bind('gT', ':tab-prev')
 config.bind('gj', ':scroll-page 0 1')
 config.bind('gk', ':scroll-page 0 -1')
 config.bind('gt', ':tab-next')
 config.bind('t', ':set-cmd-text -s :open -t')
+config.bind('ww', 'undo')
