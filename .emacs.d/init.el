@@ -133,6 +133,8 @@
 
   (exwm-input-set-key (kbd "<pause>") (lambda () (interactive)
                                         (start-process "" nil "/home/sid/sync/bin/unipause")))
+  (exwm-input-set-key (kbd "S-<pause>") (lambda () (interactive)
+                                        (start-process-shell-command "" nil "/home/sid/bin/rmpc toggle")))
 
   (defun sid/buffer-search-switch (bufname)
     "Switch to window containing a buffer named (exactly) BUFNAME.  Do nothing if not possible."
