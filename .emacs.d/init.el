@@ -86,11 +86,6 @@
   (display-time-mode t))
 
 
-;; Release C-c in term-- use C-x as prefix key
-(eval-after-load "term"
-  '(progn (term-set-escape-char ?\C-x)
-          (define-key term-raw-map (kbd "C-c") 'term-send-raw)))
-
 (server-start)
 
 (sid/load-override-module)
