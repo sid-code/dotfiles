@@ -13,8 +13,8 @@
 
   ;; Thinkpad (fatman) cannot handle yanking exwm buffers across
   ;; workspaces.
-  (let ((is-fatman (string-equal sid/system-id "fatman"))
-        (allow-yanking-exwm-buffers (not is-fatman)))
+  (let* ((is-fatman (string-equal sid/system-id "fatman"))
+         (allow-yanking-exwm-buffers (not is-fatman)))
 
     (setq-default exwm-workspace-number 10
                   exwm-workspace-show-all-buffers allow-yanking-exwm-buffers
