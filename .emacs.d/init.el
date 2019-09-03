@@ -145,6 +145,7 @@
   (setq help-window-select 'other))
 
 (use-package doom-themes
+  :ensure
   :config
   (require 'doom-themes)
 
