@@ -11,10 +11,15 @@
   (require 'exwm-config)
   (require 'exwm-randr)
 
-  (setq-default exwm-workspace-number 10
-                exwm-workspace-show-all-buffers nil
-                exwm-layout-show-all-buffers nil
-                exwm-manage-force-tiling t)
+  ;; Thinkpad (fatman) cannot handle yanking exwm buffers across
+  ;; workspaces.
+  (let ((is-fatman (string-equal sid/system-id "fatman"))
+        (allow-yanking-exwm-buffers (not is-fatman)))
+
+    (setq-default exwm-workspace-number 10
+                  exwm-workspace-show-all-buffers allow-yanking-exwm-buffers
+                  exwm-layout-show-all-buffers allow-yanking-exwm-buffers
+                  exwm-manage-force-tiling t))
 
   ;; xrandr settings
   (defun sid/exwm-randr-screen-change ()
