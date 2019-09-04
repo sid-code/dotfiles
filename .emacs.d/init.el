@@ -312,6 +312,11 @@ The default value for this parameter is in the variable `default-terminal-name'.
       (rename-buffer name buf)
       buf))
 
+  (defun sid/open-new-terminal-other-window (name)
+    (interactive (sid/read-terminal-name))
+    (let ((buf (sid/open-new-terminal name)))
+      (bury-buffer buf)
+      (switch-to-buffer-other-window buf)))
 
   :init
   (require 'multi-term)
