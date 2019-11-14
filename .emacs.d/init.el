@@ -547,6 +547,12 @@ The default value for this parameter is in the variable `default-terminal-name'.
   (epa-file-enable)
   (setq epa-pinentry-mode 'loopback))
 
+(use-package lua-mode
+  :ensure t
+  :defer t
+  :config
+  (setq lua-indent-level 2))
+
 (use-package tide
   :ensure t
   :defer t
