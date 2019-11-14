@@ -276,6 +276,12 @@
   (delete 'shell-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'shell-mode))
 
+(use-package openwith
+  :ensure t
+  :defer t
+  :init (openwith-mode t)
+  :config
+  (setq openwith-associations`(("\\.pdf\\'" "evince" (file)))))
 
 (use-package comint
   :defer t
