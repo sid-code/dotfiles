@@ -22,7 +22,7 @@
   (defun sid/exwm-randr-screen-change ()
     (start-process-shell-command "xrandr" nil "xrandr --output HDMI-A-0 --auto")
     (start-process-shell-command "xrandr" nil "xrandr --output DVI-D-0 --auto --left-of HDMI-A-0"))
-  (setq exwm-randr-workspace-output-plist '(1 "HDMI-A-0" 2 "DVI-D-0"))
+  (setq exwm-randr-workspace-output-plist '(0 "HDMI-A-0" 1 "HDMI-A-0" 2 "DVI-D-0" 3 "HDMI-A-0" 4 "DVI-D-0"))
   (add-hook 'exwm-randr-screen-change-hook #'sid/exwm-randr-screen-change)
   (exwm-randr-enable)
 
