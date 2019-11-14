@@ -148,10 +148,6 @@ c.tabs.select_on_remove = 'last-used'
 # Type: PercOrInt
 c.tabs.width = 200
 
-# Enable tree-tabs mode.
-# Type: Bool
-c.tabs.tree_tabs = True
-
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.
 # Type: FuzzyUrl
