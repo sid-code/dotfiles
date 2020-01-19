@@ -50,6 +50,14 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
+# Allow websites to show notifications.
+# Type: BoolAsk
+# Valid values:
+#   - true
+#   - false
+#   - ask
+config.set('content.notifications', True, 'https://voice.google.com')
+
 # Editor (and arguments) to use for the `open-editor` command. The
 # following placeholders are defined: * `{file}`: Filename of the file
 # to be edited. * `{line}`: Line in which the caret is found in the
@@ -176,13 +184,14 @@ c.fonts.monospace = '"Noto Sans Mono"'
 # Bindings for normal mode
 config.bind('<', ':back')
 config.bind('>', ':forward')
-config.bind('M', 'spawn mpv {url}')
+config.bind('M', 'spawn mpvyt {url}')
 config.bind('O', 'hint links spawn openurl {hint-url}')
+config.bind('Sr', 'jseval document.querySelector(".side").style.display="none"')
 config.bind('b', 'set-cmd-text -s :buffer')
 config.bind('gT', ':tab-prev')
 config.bind('gj', ':scroll-page 0 1')
 config.bind('gk', ':scroll-page 0 -1')
+config.bind('gl', 'tab-focus last')
 config.bind('gt', ':tab-next')
 config.bind('t', ':set-cmd-text -s :open -t')
 config.bind('ww', 'undo')
-config.bind('Sr', 'jseval document.querySelector(".side").style.display="none"')
