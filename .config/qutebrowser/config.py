@@ -151,10 +151,23 @@ c.tabs.position = 'left'
 #   - last-used: Select the previously selected tab.
 c.tabs.select_on_remove = 'last-used'
 
+# When to show the tab bar.
+# Type: String
+# Valid values:
+#   - always: Always show the tab bar.
+#   - never: Always hide the tab bar.
+#   - multiple: Hide the tab bar if only one tab is open.
+#   - switching: Show the tab bar when switching tabs.
+c.tabs.show = 'never'
+
 # Width (in pixels or as percentage of the window) of the tab bar if
 # it's vertical.
 # Type: PercOrInt
 c.tabs.width = 200
+
+# Enable tree-tabs mode.
+# Type: Bool
+c.tabs.tree_tabs = True
 
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.
