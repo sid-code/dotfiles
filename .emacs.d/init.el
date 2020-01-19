@@ -38,7 +38,6 @@
 
 (use-package modules)
 
-
 (sid/load-config-module "baseconfig")
 
 (server-start)
