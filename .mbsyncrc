@@ -5,6 +5,25 @@ Create Both
 Expunge Both
 SyncState *
 
+IMAPAccount ric
+Host skulk.org
+User sid
+PassCmd "pass show Mail/sid@skulk.org"
+SSLType STARTTLS
+AuthMechs LOGIN
+CertificateFile ~/.cert/skulk.org.pem
+
+IMAPStore ric-remote
+Account ric
+
+MaildirStore ric-local
+Path ~/mail/ric
+Inbox ~/mail/ric/inbox
+
+Channel ric-inbox
+Master :ric-remote:
+Slave :ric-local:
+
 IMAPAccount g1
 Host imap.gmail.com
 User kulkarnisidharth1@gmail.com
