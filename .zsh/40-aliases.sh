@@ -16,7 +16,7 @@ alias ncr="nim c -r"
 alias py2env="source ~/.python2-venv/bin/activate"
 alias py3env="source ~/.python-venv/bin/activate"
 
-alias vim="emacsclient --alternate-editor=\"nvim\""
+alias vim="emacsclient --alternate-editor=\"vim\""
 
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
