@@ -1,6 +1,5 @@
 (use-package org
   :ensure t
-  :defer t
   :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
