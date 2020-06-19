@@ -8,5 +8,6 @@
          (lambda ()
            (require 'ccls)
 	   (c-set-style "linux")
+           (c-set-offset 'innamespace 0)
            (setq-local evil-shift-width 8)
            (lsp))))
