@@ -30,8 +30,8 @@ path=/home/sid/mail
 #
 [user]
 name=Sidharth Kulkarni
-primary_email=kulkarnisidharth1@gmail.com
-other_email=kulkarnisidharth2@gmail.com;skulka20@asu.edu;
+primary_email=sid@skulk.org
+other_email=kulkarnisidharth1@gmail.com;kulkarnisidharth2@gmail.com;
 
 # Configuration for "notmuch new"
 #
@@ -86,15 +86,3 @@ exclude_tags=deleted;spam;
 #
 [maildir]
 synchronize_flags=true
-
-# Cryptography related configuration
-#
-# The following *deprecated* option is currently supported:
-#
-#	gpg_path
-#		binary name or full path to invoke gpg.
-#		NOTE: In a future build, this option will be ignored.
-#		Setting $PATH is a better approach.
-#
-[crypto]
-gpg_path=gpg
