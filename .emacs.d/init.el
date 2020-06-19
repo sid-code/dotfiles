@@ -45,9 +45,10 @@
 (if sid/with-exwm
   (sid/load-config-module "exwm"))
 
-
 (sid/load-config-module "keybinder")
 (sid/load-config-module "globalkeys")
+(sid/load-config-module-for-systems "framemove" "doa")
+
 (sid/load-config-module "smarttabs")
 (sid/load-config-module "help")
 
