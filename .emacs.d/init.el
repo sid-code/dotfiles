@@ -45,9 +45,10 @@
 (if sid/with-exwm
   (sid/load-config-module "exwm"))
 
-
 (sid/load-config-module "keybinder")
 (sid/load-config-module "globalkeys")
+(sid/load-config-module-for-systems "framemove" "doa")
+
 (sid/load-config-module "smarttabs")
 (sid/load-config-module "help")
 
@@ -58,12 +59,14 @@
 (sid/load-config-module "comint")
 (sid/load-config-module "vterm")
 
-(sid/load-config-module "tramp")
+; (sid/load-config-module "tramp")
 (sid/load-config-module "pdf-tools")
 (sid/load-config-module "openwith")
 (sid/load-config-module "org")
-(sid/load-config-module-for-systems "notmuch" "doa")
+(sid/load-config-module "org-roam")
 (sid/load-config-module "irc")
+
+(sid/load-config-module-for-systems "notmuch" "doa")
 
 (sid/load-config-module "counsel")
 
@@ -72,22 +75,23 @@
 (sid/load-config-module "ccls")
 (sid/load-config-module "lsp-ui")
 (sid/load-config-module "lsp-java")
-(sid/load-config-module "slime")
 (sid/load-config-module "paredit")
 (sid/load-config-module "evil-paredit")
 (sid/load-config-module "magit")
+(sid/load-config-module "slime")
 
 (sid/load-config-module "lua")
 (sid/load-config-module "typescript")
 (sid/load-config-module "go")
 (sid/load-config-module "lisp")
+
 (sid/load-config-module "elisp")
 (sid/load-config-module "latex")
 (sid/load-config-module "web")
 (sid/load-config-module "nim")
 
-(sid/load-config-module "epa-file")
 (sid/load-config-module "pinentry")
+(sid/load-config-module "epa-file")
 
 (sid/load-config-module "avy")
 (sid/load-config-module "webpaste")

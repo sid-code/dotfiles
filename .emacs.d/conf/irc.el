@@ -1,7 +1,7 @@
 (use-package circe
   :requires password-store
   :ensure t
-  :defer t
+  :commands (circe)
   :config
   (defun circe-init ()
     "Initialize circe, with passwords."

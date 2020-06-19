@@ -11,6 +11,19 @@
 # Type: Dict
 c.aliases = {'w': 'session-save', 'q': 'quit', 'wq': 'quit --save'}
 
+# How to open links in an existing instance if a new one is launched.
+# This happens when e.g. opening a link from a terminal. See
+# `new_instance_open_target_window` to customize in which window the
+# link is opened in.
+# Type: String
+# Valid values:
+#   - tab: Open a new tab in the existing window and activate the window.
+#   - tab-bg: Open a new background tab in the existing window and activate the window.
+#   - tab-silent: Open a new tab in the existing window without activating the window.
+#   - tab-bg-silent: Open a new background tab in the existing window without activating the window.
+#   - window: Open in a new window.
+c.new_instance_open_target = 'window'
+
 # Which window to choose when opening links as new tabs. When
 # `new_instance_open_target` is set to `window`, this is ignored.
 # Type: String
@@ -38,9 +51,81 @@ c.auto_save.session = True
 #   - never: Don't accept cookies at all.
 c.content.cookies.accept = 'all'
 
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}', 'https://web.whatsapp.com/')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://accounts.google.com/*')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36', 'https://*.slack.com/*')
+
+# User agent to send.  The following placeholders are defined:  *
+# `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
+# The underlying WebKit version (set to a fixed value   with
+# QtWebEngine). * `{qt_key}`: "Qt" for QtWebKit, "QtWebEngine" for
+# QtWebEngine. * `{qt_version}`: The underlying Qt version. *
+# `{upstream_browser_key}`: "Version" for QtWebKit, "Chrome" for
+# QtWebEngine. * `{upstream_browser_version}`: The corresponding
+# Safari/Chrome version. * `{qutebrowser_version}`: The currently
+# running qutebrowser version.  The default value is equal to the
+# unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
+# read from JavaScript is always the global value.
+# Type: FormatString
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://docs.google.com/*')
+
+# Load images automatically in web pages.
+# Type: Bool
+config.set('content.images', True, 'chrome-devtools://*')
+
+# Load images automatically in web pages.
+# Type: Bool
+config.set('content.images', True, 'devtools://*')
+
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'file://*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, 'chrome-devtools://*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, 'devtools://*')
 
 # Enable JavaScript.
 # Type: Bool
@@ -59,7 +144,7 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 config.set('content.notifications', True, 'https://voice.google.com')
 
 # Editor (and arguments) to use for the `open-editor` command. The
-# following placeholders are defined: * `{file}`: Filename of the file
+# following placeholders are defined:  * `{file}`: Filename of the file
 # to be edited. * `{line}`: Line in which the caret is found in the
 # text. * `{column}`: Column in which the caret is found in the text. *
 # `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
@@ -90,7 +175,7 @@ c.prompt.radius = 0
 
 # Open new tabs (middleclick/ctrl+click) in the background.
 # Type: Bool
-c.tabs.background = True
+c.tabs.background = False
 
 # Mouse button with which to close tabs.
 # Type: String
@@ -160,28 +245,37 @@ c.tabs.select_on_remove = 'last-used'
 #   - switching: Show the tab bar when switching tabs.
 c.tabs.show = 'never'
 
+# Open a new window for every tab.
+# Type: Bool
+c.tabs.tabs_are_windows = True
+
 # Width (in pixels or as percentage of the window) of the tab bar if
 # it's vertical.
 # Type: PercOrInt
 c.tabs.width = 200
-
-# Enable tree-tabs mode.
-# Type: Bool
-c.tabs.tree_tabs = True
 
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.
 # Type: FuzzyUrl
 c.url.default_page = 'about:blank'
 
-# Search engines which can be used via the address bar. Maps a search
+# Search engines which can be used via the address bar.  Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
 # placeholder. The placeholder will be replaced by the search term, use
-# `{{` and `}}` for literal `{`/`}` signs. The search engine named
-# `DEFAULT` is used when `url.auto_search` is turned on and something
-# else than a URL was entered to be opened. Other search engines can be
-# used by prepending the search engine name to the search term, e.g.
-# `:open google qutebrowser`.
+# `{{` and `}}` for literal `{`/`}` braces.  The following further
+# placeholds are defined to configure how special characters in the
+# search terms are replaced by safe characters (called 'quoting'):  *
+# `{}` and `{semiquoted}` quote everything except slashes; this is the
+# most   sensible choice for almost all search engines (for the search
+# term   `slash/and&amp` this placeholder expands to `slash/and%26amp`).
+# * `{quoted}` quotes all characters (for `slash/and&amp` this
+# placeholder   expands to `slash%2Fand%26amp`). * `{unquoted}` quotes
+# nothing (for `slash/and&amp` this placeholder   expands to
+# `slash/and&amp`).  The search engine named `DEFAULT` is used when
+# `url.auto_search` is turned on and something else than a URL was
+# entered to be opened. Other search engines can be used by prepending
+# the search engine name to the search term, e.g.  `:open google
+# qutebrowser`.
 # Type: Dict
 c.url.searchengines = {'DEFAULT': 'https://google.com/search?hl=en&q={}', 'ddg': 'https://duckduckgo.com/?q={}'}
 
@@ -189,22 +283,18 @@ c.url.searchengines = {'DEFAULT': 'https://google.com/search?hl=en&q={}', 'ddg':
 # Type: List of FuzzyUrl, or FuzzyUrl
 c.url.start_pages = 'about:blank'
 
-# Default monospace fonts. Whenever "monospace" is used in a font
-# setting, it's replaced with the fonts listed here.
-# Type: Font
-c.fonts.monospace = '"Noto Sans Mono"'
-
 # Bindings for normal mode
 config.bind('<', ':back')
 config.bind('>', ':forward')
 config.bind('M', 'spawn mpvyt {url}')
 config.bind('O', 'hint links spawn openurl {hint-url}')
 config.bind('Sr', 'jseval document.querySelector(".side").style.display="none"')
-config.bind('b', 'set-cmd-text -s :buffer')
+config.bind('b', 'spawn emacsclient -e "(ivy-switch-buffer)"')
+config.bind('d', 'close')
 config.bind('gT', ':tab-prev')
 config.bind('gj', ':scroll-page 0 1')
 config.bind('gk', ':scroll-page 0 -1')
 config.bind('gl', 'tab-focus last')
 config.bind('gt', ':tab-next')
-config.bind('t', ':set-cmd-text -s :open -t')
+config.bind('t', ':set-cmd-text -s :open -w')
 config.bind('ww', 'undo')

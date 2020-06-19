@@ -7,7 +7,8 @@
   (load (expand-file-name (concat name ".el") sid/config-module-basepath)))
 
 (defun sid/load-config-module-for-systems (name &rest systems)
-  "Load a configuration module by NAME, but only if the system name is in SYSTEMS.  Do not specify .el in the NAME."
+  "Load a configuration module by NAME, but only if the system
+name is in SYSTEMS.  Do not specify .el in the NAME."
   (interactive)
   (if (or (equal systems '(:all)) (member sid/system-id systems))
       (sid/load-config-module name)))

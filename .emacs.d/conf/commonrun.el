@@ -21,14 +21,27 @@ The buffer is named BUFNAME, or if not specified CMD."
        (let ((vterm-shell ,cmd))
          (vterm ,bufname)))))
 
+(defmacro sid/join-interactive-functions (fn1 fn2)
+  `(lambda () (interactive)
+     (call-interactively ,fn1)
+     (call-interactively ,fn2)))
+
 (define-key commonrun-map (kbd "q")
-  (commonrun-no-terminal "myqutebrowser"))
+  (commonrun-no-terminal "/home/sid/bin/myqutebrowser"))
 
 (define-key commonrun-map (kbd "n")
-  (commonrun-with-terminal "/usr/bin/ncmpcpp" "ncmpcpp term"))
+  (sid/join-interactive-functions
+   (commonrun-no-terminal "sh -c mount | grep /home/sid/music/ric || sshfs ric:dls /home/sid/music/ric")
+   (commonrun-with-terminal "/usr/bin/ncmpcpp" "ncmpcpp term")))
+
+(define-key commonrun-map (kbd "h")
+  (commonrun-with-terminal "/usr/bin/htop" "htop term"))
 
 (define-key commonrun-map (kbd "u")
   (commonrun-with-terminal "tail -f ~/unison.log" "unison log term"))
+
+(define-key commonrun-map (kbd "m")
+  (commonrun-with-terminal "/usr/bin/rmaxima" "maxima term"))
 
 (require 'keybinder)
 (exwm-input-set-key (kbd "s-e") commonrun-map)
