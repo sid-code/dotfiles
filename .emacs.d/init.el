@@ -62,7 +62,7 @@
 (sid/load-config-module "pdf-tools")
 (sid/load-config-module "openwith")
 (sid/load-config-module "org")
-(sid/load-config-module "notmuch")
+(sid/load-config-module-for-systems "notmuch" "doa")
 (sid/load-config-module "irc")
 
 (sid/load-config-module "counsel")
