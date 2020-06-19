@@ -4,6 +4,20 @@
 
 ;;; Code:
 
+(defun sid/exwm-maybe-rename-buffer-to-class ()
+  (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+              (string= "gimp" exwm-instance-name))
+    (exwm-workspace-rename-buffer exwm-class-name)))
+
+(defun sid/exwm-maybe-rename-buffer-to-title ()
+  (when (or (not exwm-instance-name)
+            (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+            (string= "gimp" exwm-instance-name)
+            (string= "evince" exwm-instance-name)
+            (string= "qutebrowser" exwm-instance-name)
+            (string= "qutebrowser.py" exwm-instance-name))
+    (exwm-workspace-rename-buffer exwm-title)))
+
 (use-package exwm
   :ensure t
   :init
@@ -20,23 +34,14 @@
 
 
   (defun sid/exwm-randr-screen-change ()
-    (start-process-shell-command "xrandr" nil "xrandr --output HDMI-A-0 --auto")
-    (start-process-shell-command "xrandr" nil "xrandr --output DVI-D-0 --auto --left-of HDMI-A-0"))
-  (setq exwm-randr-workspace-output-plist '(0 "HDMI-A-0" 1 "HDMI-A-0" 2 "DVI-D-0" 3 "HDMI-A-0" 4 "DVI-D-0"))
+    (start-process-shell-command "xrandr" nil "xrandr --output DVI-D-0 --pos 0x0")
+    (start-process-shell-command "xrandr" nil "xrandr --output HDMI-A-0 --right-of DVI-D-0 --pos 1920x0"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-A-0" 1 "DVI-D-0" 2 "DVI-D-0" 3 "DVI-D-0" 4 "DVI-D-0"))
   (add-hook 'exwm-randr-screen-change-hook #'sid/exwm-randr-screen-change)
   (exwm-randr-enable)
 
-  (add-hook 'exwm-update-class-hook
-            (lambda ()
-              (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                          (string= "gimp" exwm-instance-name))
-                (exwm-workspace-rename-buffer exwm-class-name))))
-  (add-hook 'exwm-update-title-hook
-            (lambda ()
-              (when (or (not exwm-instance-name)
-                        (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                        (string= "gimp" exwm-instance-name))
-                (exwm-workspace-rename-buffer exwm-title))))
+  (add-hook 'exwm-update-class-hook 'sid/exwm-maybe-rename-buffer-to-class)
+  (add-hook 'exwm-update-title-hook 'sid/exwm-maybe-rename-buffer-to-title)
 
   (setq exwm-input-simulation-keys nil)
 
@@ -106,7 +111,5 @@
                         (shell-command "/home/sid/code/dwmbar/dwmstatus/rawstatus --once")))
 
   (exwm-input-set-key (kbd "s-x") (lambda () (interactive)
-                                    (call-interactively #'exwm-floating-toggle-floating)))
-
-  )
+                                    (call-interactively #'exwm-floating-toggle-floating))))
 
