@@ -1,5 +1,6 @@
 
 (use-package web-mode
+  :ensure t
   :defer t
   :init
   (setq web-mode-enable-optional-tags t)

@@ -20,6 +20,7 @@
           ((string-equal sid/system-id "harth") 115)
           ((string-equal sid/system-id "doa") 120)
           ((string-equal sid/system-id "archlinux") 100)
+          ((string-equal sid/system-id "fish") 105)
           (t 115)))
 
 (setq tab-width 8)

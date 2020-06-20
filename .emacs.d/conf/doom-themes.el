@@ -1,4 +1,5 @@
 (use-package doom-themes
+  :ensure t
   :config
   (require 'doom-themes)
 
