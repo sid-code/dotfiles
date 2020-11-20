@@ -1,3 +1,4 @@
 (use-package vc-hg
-  :config
-  (delete 'Hg vc-handled-backends))
+  :init
+  (setq vc-handled-backends
+        (delete 'Fig (delete 'Hg vc-handled-backends))))
