@@ -34,9 +34,10 @@
 
 
   (defun sid/exwm-randr-screen-change ()
-    (start-process-shell-command "xrandr" nil "xrandr --output DVI-D-0 --pos 0x0")
-    (start-process-shell-command "xrandr" nil "xrandr --output HDMI-A-0 --right-of DVI-D-0 --pos 1920x0"))
-  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-A-0" 1 "DVI-D-0" 2 "DVI-D-0" 3 "DVI-D-0" 4 "DVI-D-0"))
+    (start-process-shell-command "xrandr" nil "xrandr --output HDMI-A-0")
+    (start-process-shell-command "xrandr" nil "xrandr --output DisplayPort-1 --right-of HDMI-A-0")
+    (start-process-shell-command "xrandr" nil "xrandr --output DVI-D-0 --right-of DisplayPort-1 --rotate left"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI-A-0" 1 "DisplayPort-1" 2 "DVI-D-0" 3 "DVI-D-0" 4 "DVI-D-0"))
   (add-hook 'exwm-randr-screen-change-hook #'sid/exwm-randr-screen-change)
   (exwm-randr-enable)
 
