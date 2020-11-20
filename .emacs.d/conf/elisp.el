@@ -1,3 +1,3 @@
 (use-package elisp-mode
-  :requires paredit-mode
+  :requires paredit
   :hook (emacs-lisp-mode . paredit-mode))
