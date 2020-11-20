@@ -9,6 +9,12 @@ CMD should start a graphical app, or perhaps a daemon."
      ,(format "Run the program '%s'." cmd)
      (start-process-shell-command ,cmd nil ,cmd)))
 
+(defmacro commonrun-shell-command (cmd)
+  "Create a lambda to run CMD as a SHELL-COMMAND."
+  `(lambda () (interactive)
+     ,(format "Run the program '%s'." cmd)
+     (shell-command ,cmd)))
+
 (defmacro commonrun-with-terminal (cmd &optional bufname)
   "Create a lambda to run CMD in a terminal.
 The buffer is named BUFNAME, or if not specified CMD."
