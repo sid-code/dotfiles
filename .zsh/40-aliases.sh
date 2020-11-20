@@ -29,6 +29,8 @@ alias awifi="sudo netctl stop-all;sudo netctl start wlp2s0-asu"
 
 alias dback="ssh skulkarni@dback-login1.tgen.org"
 
+alias ecd='emacsclient -e "(with-current-buffer (window-buffer (selected-window)) (cd \"$PWD\"))"'
+
 extip() {
   curl -sf ipecho.net/plain && echo
 }
