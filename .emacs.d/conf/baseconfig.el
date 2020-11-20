@@ -11,7 +11,7 @@
 (setq winner-dont-bind-my-keys t)
 (winner-mode 1)
 
-(display-battery-mode 1)
+;(display-battery-mode nil)
 
 (set-face-attribute
  'default nil
