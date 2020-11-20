@@ -9,6 +9,7 @@
 
   (global-set-key (kbd "C-x C-x") (lambda () (interactive) (switch-to-buffer nil)))
   (global-set-key (kbd "C-x C-r") 'rename-buffer)
+
   (exwm-input-set-key (kbd "C-x M-f") 'sid/find-class)
 
 
